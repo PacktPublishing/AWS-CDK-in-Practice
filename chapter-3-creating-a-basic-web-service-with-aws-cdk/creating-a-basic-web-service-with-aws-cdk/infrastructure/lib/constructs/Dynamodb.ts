@@ -1,5 +1,6 @@
 import { Construct } from 'constructs';
 import { AttributeType, BillingMode, Table } from 'aws-cdk-lib/aws-dynamodb';
+import { RemovalPolicy } from 'aws-cdk-lib';
 
 export class Dynamodb extends Construct {
   public readonly main_table: Table;
@@ -18,6 +19,7 @@ export class Dynamodb extends Construct {
       },
       tableName: 'main_table',
       billingMode: BillingMode.PAY_PER_REQUEST,
+      removalPolicy: RemovalPolicy.DESTROY
     });
   }
 }

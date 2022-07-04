@@ -2,6 +2,7 @@ import { Bucket } from 'aws-cdk-lib/aws-s3';
 import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
 import { Construct } from 'constructs';
 import { resolve } from 'path';
+import { RemovalPolicy } from 'aws-cdk-lib';
 
 export class S3 extends Construct {
   public readonly web_bucket: Bucket;
@@ -16,6 +17,7 @@ export class S3 extends Construct {
       websiteIndexDocument: 'index.html',
       websiteErrorDocument: 'index.html',
       publicReadAccess: true,
+      removalPolicy: RemovalPolicy.DESTROY
     });
 
     this.web_bucket_deployment = new BucketDeployment(scope, 'WebBucketDeployment', {
