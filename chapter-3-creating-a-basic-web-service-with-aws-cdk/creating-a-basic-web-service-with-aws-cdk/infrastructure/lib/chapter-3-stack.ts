@@ -19,6 +19,8 @@ export class Chapter3Stack extends Stack {
 
     this.s3 = new S3(this, 'S3');
 
-    this.ecs = new ECS(this, 'ECS');
+    this.ecs = new ECS(this, 'ECS', {
+      dynamodb: this.dynamodb,
+    });
   }
 }

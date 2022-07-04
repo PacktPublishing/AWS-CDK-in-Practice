@@ -13,6 +13,11 @@ import {
   ApplicationListener,
   ApplicationLoadBalancer,
 } from 'aws-cdk-lib/aws-elasticloadbalancingv2';
+import { Dynamodb } from './Dynamodb';
+
+interface Props {
+  dynamodb: Dynamodb;
+}
 
 export class ECS extends Construct {
   public readonly vpc: Vpc;
@@ -29,7 +34,7 @@ export class ECS extends Construct {
 
   public readonly listener: ApplicationListener;
 
-  constructor(scope: Construct, id: string) {
+  constructor(scope: Construct, id: string, props: Props) {
     super(scope, id);
 
     this.vpc = new Vpc(scope, 'Vpc', { maxAzs: 2 });
@@ -79,6 +84,8 @@ export class ECS extends Construct {
         timeout: Duration.seconds(5),
       },
     });
+
+    props.dynamodb.main_table.grantReadWriteData(this.task_definition.taskRole);
 
     new CfnOutput(scope, 'LoadBalancerDNS', { value: this.load_balancer.loadBalancerDnsName });
   }
