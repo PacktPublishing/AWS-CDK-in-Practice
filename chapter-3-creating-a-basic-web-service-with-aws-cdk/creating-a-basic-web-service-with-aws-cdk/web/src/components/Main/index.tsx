@@ -17,7 +17,7 @@ const [todos, setTodos] = useState<Interfaces.Todo[]>([]);
 
   useEffect(() => {
     const fetchTodos = async () => {
-      const response = await axios.get('http://localhost:80/');
+      const response = await axios.get('http://Chapt-LB8A1-10JPB7RSMRLQP-1371990532.us-east-1.elb.amazonaws.com/');
 
       setTodos(response.data.todos);
     };
@@ -30,7 +30,7 @@ const [todos, setTodos] = useState<Interfaces.Todo[]>([]);
   }: {
     new_todo: Interfaces.Todo;
   }) => {
-    const response = await axios.post('http://localhost:3333/', {
+    const response = await axios.post('http://Chapt-LB8A1-10JPB7RSMRLQP-1371990532.us-east-1.elb.amazonaws.com/', {
       todo: new_todo,
     });
 

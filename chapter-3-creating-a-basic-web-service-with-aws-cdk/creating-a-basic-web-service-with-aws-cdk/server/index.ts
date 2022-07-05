@@ -10,13 +10,15 @@ import {
   QueryCommandInput,
 } from '@aws-sdk/lib-dynamodb';
 
+import { accessKeyId, region, secretAccessKey } from './config.json';
+
 const app = express();
 const port = process.env.PORT || 80;
 
 /* ----------
  * DynamoDB Client (AWS SDK) for Node.js
  * ---------- */
-const ddbClient = new DynamoDBClient({});
+const ddbClient = new DynamoDBClient({ region, credentials: { accessKeyId, secretAccessKey } });
 
 const marshallOptions = {
   convertEmptyValues: false,
