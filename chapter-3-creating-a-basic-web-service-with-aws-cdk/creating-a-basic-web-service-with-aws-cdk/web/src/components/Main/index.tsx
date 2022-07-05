@@ -17,7 +17,7 @@ const [todos, setTodos] = useState<Interfaces.Todo[]>([]);
 
   useEffect(() => {
     const fetchTodos = async () => {
-      const response = await axios.get('http://localhost:3333/');
+      const response = await axios.get('http://localhost:80/');
 
       setTodos(response.data.todos);
     };

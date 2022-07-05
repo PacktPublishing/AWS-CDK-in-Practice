@@ -2,10 +2,10 @@ FROM node:lts
 
 WORKDIR /server
 
-COPY .. .
+COPY . .
 
 RUN npm install && npm run build
 
 EXPOSE 80
 
-ENTRYPOINT ["npm", "run", "server"]
+ENTRYPOINT ["npm", "run", "start"]

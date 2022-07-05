@@ -17,7 +17,7 @@ export class S3 extends Construct {
       websiteIndexDocument: 'index.html',
       websiteErrorDocument: 'index.html',
       publicReadAccess: true,
-      removalPolicy: RemovalPolicy.DESTROY
+      removalPolicy: RemovalPolicy.DESTROY,
     });
 
     this.web_bucket_deployment = new BucketDeployment(scope, 'WebBucketDeployment', {

@@ -14,6 +14,7 @@ import {
   ApplicationLoadBalancer,
 } from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 import { Dynamodb } from './Dynamodb';
+import { resolve } from 'path';
 
 interface Props {
   dynamodb: Dynamodb;
@@ -48,13 +49,12 @@ export class ECS extends Construct {
     this.task_definition = new Ec2TaskDefinition(scope, 'TaskDefinition');
 
     this.container = this.task_definition.addContainer('Express', {
-      image: ContainerImage.fromAsset('./'),
+      image: ContainerImage.fromAsset(resolve(__dirname, '..', '..', '..', 'server')),
       memoryLimitMiB: 256,
     });
 
     this.container.addPortMappings({
       containerPort: 80,
-      hostPort: 8080,
       protocol: Protocol.TCP,
     });
 
