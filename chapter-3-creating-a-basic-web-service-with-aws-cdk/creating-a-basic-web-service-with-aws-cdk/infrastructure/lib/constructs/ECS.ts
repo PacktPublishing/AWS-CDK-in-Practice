@@ -8,6 +8,7 @@ import {
   Ec2Service,
   Ec2TaskDefinition,
   Protocol,
+  LogDriver
 } from 'aws-cdk-lib/aws-ecs';
 import {
   ApplicationListener,
@@ -51,6 +52,7 @@ export class ECS extends Construct {
     this.container = this.task_definition.addContainer('Express', {
       image: ContainerImage.fromAsset(resolve(__dirname, '..', '..', '..', 'server')),
       memoryLimitMiB: 256,
+      logging: LogDriver.awsLogs({ streamPrefix: 'chapter3' }),
     });
 
     this.container.addPortMappings({
