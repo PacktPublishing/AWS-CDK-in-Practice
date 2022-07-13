@@ -3,6 +3,7 @@ import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
 import { Construct } from 'constructs';
 import { resolve } from 'path';
 import { CfnOutput, RemovalPolicy } from 'aws-cdk-lib';
+import { v4 as uuidv4 } from 'uuid';
 
 export class S3 extends Construct {
   public readonly web_bucket: Bucket;
@@ -13,7 +14,7 @@ export class S3 extends Construct {
     super(scope, id);
 
     this.web_bucket = new Bucket(scope, 'WebBucket', {
-      bucketName: 'chapter-3-web-bucket',
+      bucketName: `chapter-3-web-bucket-${uuidv4()}`,
       websiteIndexDocument: 'index.html',
       websiteErrorDocument: 'index.html',
       publicReadAccess: true,
