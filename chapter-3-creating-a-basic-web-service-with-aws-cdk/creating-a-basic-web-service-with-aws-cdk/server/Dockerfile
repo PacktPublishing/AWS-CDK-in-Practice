@@ -1,4 +1,4 @@
-FROM node:lts
+FROM amd64/node:lts
 
 WORKDIR /server
 
