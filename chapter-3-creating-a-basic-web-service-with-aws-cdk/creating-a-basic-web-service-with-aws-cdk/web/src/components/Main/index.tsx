@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
 import { Interfaces } from '../../../@types/interfaces';
+
 import { CreateTodo } from '../CreateTodo';
 import { Todo } from '../Todo';
-import axios from 'axios';
 
 import { MainContainer } from './styles';
 
+/* ----------
+ * Add backend URL provided by the cdk deploy here!
+ * ---------- */
+const backend_url = '';
+
 
 export const Main: React.FC = () => {
-/* ----------
+  /* ----------
    * States
    * ---------- */
-const [todos, setTodos] = useState<Interfaces.Todo[]>([]);
-
-  
+  const [todos, setTodos] = useState<Interfaces.Todo[]>([]);
 
   useEffect(() => {
     const fetchTodos = async () => {
-      const response = await axios.get('http://Chapt-LB8A1-10JPB7RSMRLQP-1371990532.us-east-1.elb.amazonaws.com/');
+      const response = await axios.get(backend_url);
 
       setTodos(response.data.todos);
     };
@@ -30,7 +35,7 @@ const [todos, setTodos] = useState<Interfaces.Todo[]>([]);
   }: {
     new_todo: Interfaces.Todo;
   }) => {
-    const response = await axios.post('http://Chapt-LB8A1-10JPB7RSMRLQP-1371990532.us-east-1.elb.amazonaws.com/', {
+    const response = await axios.post(backend_url, {
       todo: new_todo,
     });
 
@@ -48,12 +53,12 @@ const [todos, setTodos] = useState<Interfaces.Todo[]>([]);
       <CreateTodo handleTodoSubmit={handleTodoSubmit} />
 
       <p>{completed}/{to_complete} completed</p>
-       
-      
-        {todos.map(t => (
-          <Todo />
-        ))}
-      
+
+
+      {todos.map(t => (
+        <Todo />
+      ))}
+
     </MainContainer>
   );
 };

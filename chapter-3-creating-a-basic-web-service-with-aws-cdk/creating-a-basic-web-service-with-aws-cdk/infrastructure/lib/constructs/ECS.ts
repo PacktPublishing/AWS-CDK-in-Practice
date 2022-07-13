@@ -87,6 +87,6 @@ export class ECS extends Construct {
 
     props.dynamodb.main_table.grantReadWriteData(this.task_definition.taskRole);
 
-    new CfnOutput(scope, 'LoadBalancerDNS', { value: this.load_balancer.loadBalancerDnsName });
+    new CfnOutput(scope, 'BackendURL', { value: this.load_balancer.loadBalancerDnsName });
   }
 }
