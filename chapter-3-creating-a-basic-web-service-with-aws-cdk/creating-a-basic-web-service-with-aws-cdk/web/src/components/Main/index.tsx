@@ -11,7 +11,7 @@ import { MainContainer } from './styles';
 /* ----------
  * Add backend URL provided by the cdk deploy here!
  * ---------- */
-const backend_url = '';
+const backend_url = 'http://localhost:3333/';
 
 
 export const Main: React.FC = () => {
