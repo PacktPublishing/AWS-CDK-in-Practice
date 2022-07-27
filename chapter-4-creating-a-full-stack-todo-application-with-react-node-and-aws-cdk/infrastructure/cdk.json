@@ -1,5 +1,5 @@
 {
-  "app": "cd ../web && yarn build && cd ../infrastructure && npx ts-node --prefer-ts-exts bin/chapter-4.ts",
+  "app": "npx ts-node --prefer-ts-exts bin/chapter-4.ts",
   "watch": {
     "include": [
       "**"

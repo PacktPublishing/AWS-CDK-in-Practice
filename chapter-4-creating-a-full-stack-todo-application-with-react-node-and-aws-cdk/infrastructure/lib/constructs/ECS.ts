@@ -8,7 +8,7 @@ import {
   Ec2Service,
   Ec2TaskDefinition,
   Protocol,
-  LogDriver
+  LogDriver,
 } from 'aws-cdk-lib/aws-ecs';
 import {
   ApplicationListener,
@@ -65,7 +65,10 @@ export class ECS extends Construct {
       internetFacing: true,
     });
 
-    this.listener = this.load_balancer.addListener('PublicListener', { port: 80, open: true });
+    this.listener = this.load_balancer.addListener('PublicListener', {
+      port: 80,
+      open: true,
+    });
 
     this.listener.addTargets('ECS', {
       port: 80,
@@ -82,6 +85,8 @@ export class ECS extends Construct {
       },
     });
 
-    new CfnOutput(scope, 'BackendURL', { value: this.load_balancer.loadBalancerDnsName });
+    new CfnOutput(scope, 'BackendURL', {
+      value: this.load_balancer.loadBalancerDnsName,
+    });
   }
 }
