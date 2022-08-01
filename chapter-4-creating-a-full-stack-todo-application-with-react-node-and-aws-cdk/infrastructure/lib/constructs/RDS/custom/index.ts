@@ -25,16 +25,24 @@ export class CDKResourceInitializer extends Construct {
 
   public readonly function: lambda.Function;
 
-  constructor(scope: Construct, id: string, props: CDKResourceInitializerProps) {
+  constructor(
+    scope: Construct,
+    id: string,
+    props: CDKResourceInitializerProps,
+  ) {
     super(scope, id);
 
     const stack = Stack.of(this);
 
-    const function_security_group = new ec2.SecurityGroup(scope, 'Function-SecurityGroup', {
-      securityGroupName: `${id}FunctionSecurityGroup`,
-      vpc: props.vpc,
-      allowAllOutbound: true,
-    });
+    const function_security_group = new ec2.SecurityGroup(
+      scope,
+      'Function-SecurityGroup',
+      {
+        securityGroupName: `${id}FunctionSecurityGroup`,
+        vpc: props.vpc,
+        allowAllOutbound: true,
+      },
+    );
 
     this.function = new lambda.DockerImageFunction(scope, 'Function', {
       allowAllOutbound: true,
@@ -42,7 +50,10 @@ export class CDKResourceInitializer extends Construct {
       functionName: `${id}-ResInit${stack.stackName}`,
       logRetention: props.function_log_retention,
       memorySize: props.function_memory_size || 128,
-      securityGroups: [function_security_group, ...props.function_security_groups],
+      securityGroups: [
+        function_security_group,
+        ...props.function_security_groups,
+      ],
       timeout: props.function_timeout,
       vpc: props.vpc,
       vpcSubnets: props.vpc.selectSubnets(props.subnets_selection),
@@ -54,7 +65,10 @@ export class CDKResourceInitializer extends Construct {
       },
     });
 
-    const payloadHashPrefix = createHash('md5').update(payload).digest('hex').substring(0, 6);
+    const payloadHashPrefix = createHash('md5')
+      .update(payload)
+      .digest('hex')
+      .substring(0, 6);
 
     const sdkCall: custom.AwsSdkCall = {
       service: 'Lambda',
@@ -64,7 +78,9 @@ export class CDKResourceInitializer extends Construct {
         Payload: payload,
       },
       physicalResourceId: custom.PhysicalResourceId.of(
-        `${id}-AwsSdkCall-${this.function.currentVersion.version + payloadHashPrefix}`,
+        `${id}-AwsSdkCall-${
+          this.function.currentVersion.version + payloadHashPrefix
+        }`,
       ),
     };
 
@@ -81,14 +97,18 @@ export class CDKResourceInitializer extends Construct {
       }),
     );
 
-    this.custom_resource = new custom.AwsCustomResource(scope, 'AwsCustomResource', {
-      policy: custom.AwsCustomResourcePolicy.fromSdkCalls({
-        resources: custom.AwsCustomResourcePolicy.ANY_RESOURCE,
-      }),
-      onUpdate: sdkCall,
-      timeout: Duration.minutes(10),
-      role: customResourceFnRole,
-    });
+    this.custom_resource = new custom.AwsCustomResource(
+      scope,
+      'AwsCustomResource',
+      {
+        policy: custom.AwsCustomResourcePolicy.fromSdkCalls({
+          resources: custom.AwsCustomResourcePolicy.ANY_RESOURCE,
+        }),
+        onUpdate: sdkCall,
+        timeout: Duration.minutes(10),
+        role: customResourceFnRole,
+      },
+    );
 
     this.response = this.custom_resource.getResponseField('Payload');
   }

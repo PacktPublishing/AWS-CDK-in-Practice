@@ -22,11 +22,19 @@ export class S3 extends Construct {
       autoDeleteObjects: true,
     });
 
-    this.web_bucket_deployment = new BucketDeployment(scope, 'WebBucketDeployment', {
-      sources: [Source.asset(resolve(__dirname, '..', '..', '..', 'web', 'build'))],
-      destinationBucket: this.web_bucket,
-    });
+    this.web_bucket_deployment = new BucketDeployment(
+      scope,
+      'WebBucketDeployment',
+      {
+        sources: [
+          Source.asset(resolve(__dirname, '..', '..', '..', 'web', 'build')),
+        ],
+        destinationBucket: this.web_bucket,
+      },
+    );
 
-    new CfnOutput(scope, 'FrontendURL', { value: this.web_bucket.bucketDomainName });
+    new CfnOutput(scope, 'FrontendURL', {
+      value: this.web_bucket.bucketDomainName,
+    });
   }
 }

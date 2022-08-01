@@ -28,7 +28,9 @@ function getSecretValue(secretId) {
 exports.handler = async e => {
   try {
     const { config } = e.params;
-    const { password, username, host } = await getSecretValue(config.credentials_secret_name);
+    const { password, username, host } = await getSecretValue(
+      config.credentials_secret_name,
+    );
     const connection = mysql.createConnection({
       host,
       user: username,
@@ -38,7 +40,9 @@ exports.handler = async e => {
 
     connection.connect();
 
-    const sqlScript = fs.readFileSync(path.join(__dirname, 'script.sql')).toString();
+    const sqlScript = fs
+      .readFileSync(path.join(__dirname, 'script.sql'))
+      .toString();
     const res = await query(connection, sqlScript);
 
     return {

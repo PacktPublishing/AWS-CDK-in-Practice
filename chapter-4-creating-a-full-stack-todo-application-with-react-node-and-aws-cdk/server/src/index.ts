@@ -15,9 +15,10 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/', async (req, res) => {
-  const { name, description, completed } = req.body;
+  try {
+    const { name, description, completed } = req.body;
 
-  const sql = `
+    const sql = `
     INSERT INTO Todolist
       (
         \`todo_name\`,
@@ -32,30 +33,47 @@ app.post('/', async (req, res) => {
         );
   `;
 
-  const response = await execute<OkPacket>(sql, {});
+    const response = await execute<OkPacket>(sql, {});
 
-  const { insertId } = response;
+    const { insertId } = response;
 
-  if (!insertId) return res.status(400).send('Failed to insert todo');
+    if (!insertId) return res.status(400).send('Failed to insert todo');
 
-  const todo: Todo = {
-    id: insertId,
-    todo_completed: completed,
-    todo_description: description,
-    todo_name: name,
-  };
+    const todo: Todo = {
+      id: insertId,
+      todo_completed: completed,
+      todo_description: description,
+      todo_name: name,
+    };
 
-  return res.status(200).send({
-    todo,
-  });
+    return res.status(200).send({
+      todo,
+    });
+  } catch (err) {
+    console.log(err);
+
+    return res.status(400).send({
+      message: 'Error',
+    });
+  }
 });
 
 app.get('/', async (_, res) => {
-  const sql = `SELECT * FROM Todolist;`;
+  try {
+    const sql = `SELECT * FROM Todolist;`;
 
-  const response = await execute<Todo>(sql, {});
+    const response = await execute<Todo>(sql, {});
 
-  res.status(200).send({ todos: response });
+    return res.status(200).send({ todos: response });
+  } catch (err) {
+    console.log(err);
+
+    return res.status(400).send({
+      message: 'Error',
+    });
+  }
 });
 
-app.listen(port);
+app.listen(port, () => {
+  console.log(`Server is listening on port ${port}`);
+});

@@ -7,14 +7,16 @@ import { DockerImageCode } from 'aws-cdk-lib/aws-lambda';
 
 import { CDKResourceInitializer } from './custom';
 
-export class RDS extends Construct {
-  public readonly vpc: ec2.Vpc;
+interface Props {
+  vpc: ec2.Vpc;
+}
 
+export class RDS extends Construct {
   public readonly instance: rds.DatabaseInstance;
 
   public readonly credentials: rds.DatabaseSecret;
 
-  constructor(scope: Construct, id: string) {
+  constructor(scope: Construct, id: string, props: Props) {
     super(scope, id);
 
     const instance_id = 'my-sql-instance';
@@ -25,26 +27,6 @@ export class RDS extends Construct {
       username: 'admin',
     });
 
-    this.vpc = new ec2.Vpc(scope, 'MyVPC', {
-      subnetConfiguration: [
-        {
-          cidrMask: 24,
-          name: 'ingress',
-          subnetType: ec2.SubnetType.PUBLIC,
-        },
-        {
-          cidrMask: 24,
-          name: 'compute',
-          subnetType: ec2.SubnetType.PRIVATE_WITH_NAT,
-        },
-        {
-          cidrMask: 28,
-          name: 'rds',
-          subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
-        },
-      ],
-    });
-
     this.instance = new rds.DatabaseInstance(scope, 'MySQL-RDS-Instance', {
       credentials: rds.Credentials.fromSecret(this.credentials),
       databaseName: 'todolist',
@@ -52,10 +34,13 @@ export class RDS extends Construct {
         version: rds.MysqlEngineVersion.VER_8_0_28,
       }),
       instanceIdentifier: instance_id,
-      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.SMALL),
+      instanceType: ec2.InstanceType.of(
+        ec2.InstanceClass.T2,
+        ec2.InstanceSize.SMALL,
+      ),
       port: 3306,
       publiclyAccessible: true,
-      vpc: this.vpc,
+      vpc: props.vpc,
       vpcSubnets: {
         onePerAz: true,
         subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
@@ -70,8 +55,8 @@ export class RDS extends Construct {
       function_code: DockerImageCode.fromImageAsset(`${__dirname}/init`, {}),
       function_timeout: Duration.minutes(2),
       function_security_groups: [],
-      vpc: this.vpc,
-      subnets_selection: this.vpc.selectSubnets({
+      vpc: props.vpc,
+      subnets_selection: props.vpc.selectSubnets({
         subnetType: ec2.SubnetType.PRIVATE_WITH_NAT,
       }),
     });
@@ -79,7 +64,11 @@ export class RDS extends Construct {
     initializer.custom_resource.node.addDependency(this.instance);
 
     this.credentials.grantRead(initializer.function);
-    this.instance.connections.allowFrom(initializer.function, ec2.Port.tcp(3306));
+
+    this.instance.connections.allowFrom(
+      initializer.function,
+      ec2.Port.tcp(3306),
+    );
 
     /* ----------
      * Returns the initializer function response,

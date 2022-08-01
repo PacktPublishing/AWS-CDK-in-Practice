@@ -39,7 +39,7 @@ export const init = () => {
 
       return pool;
     })
-    .catch(err => err);
+    .catch(err => console.log(err));
 };
 
 export const execute = <T>(
