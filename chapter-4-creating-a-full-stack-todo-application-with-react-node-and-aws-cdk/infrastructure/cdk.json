@@ -17,6 +17,9 @@
     ]
   },
   "context": {
+    "environment": {
+      "domain_name": "westpoint.io"
+    },
     "@aws-cdk/aws-apigateway:usagePlanKeyOrderInsensitiveId": true,
     "@aws-cdk/core:stackRelativeExports": true,
     "@aws-cdk/aws-rds:lowercaseDbIdentifier": true,

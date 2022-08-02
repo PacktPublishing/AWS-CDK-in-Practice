@@ -6,4 +6,6 @@ import { Chapter3Stack } from '../lib/chapter-4-stack';
 
 const app = new cdk.App();
 
-new Chapter3Stack(app, 'Chapter4Stack', {});
+new Chapter3Stack(app, 'Chapter4Stack', {
+  env: { region: 'us-east-1', account: process.env.CDK_DEFAULT_ACCOUNT },
+});

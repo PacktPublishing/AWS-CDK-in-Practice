@@ -13,9 +13,9 @@ interface Props {
 
 export const CreateTodo: React.FC<Props> = ({ handleTodoSubmit }) => {
   const [new_todo, setNewTodo] = useState<Interfaces.Todo>({
-    name: '',
-    description: '',
-    completed: false,
+    todo_name: '',
+    todo_description: '',
+    todo_completed: false,
   });
 
   const handleTodoChange = (type: string, value: string) => {
@@ -27,7 +27,7 @@ export const CreateTodo: React.FC<Props> = ({ handleTodoSubmit }) => {
 
       <InputContainer>
       <input
-        onChange={({ target }) => handleTodoChange('name', target.value)}
+        onChange={({ target }) => handleTodoChange('todo_name', target.value)}
         type="text"
         name="new_todo"
         id="new_todo"
@@ -35,7 +35,7 @@ export const CreateTodo: React.FC<Props> = ({ handleTodoSubmit }) => {
       />
 
       <input
-        onChange={({ target }) => handleTodoChange('description', target.value)}
+        onChange={({ target }) => handleTodoChange('todo_description', target.value)}
         type="text"
         name="new_todo"
         id="new_todo"

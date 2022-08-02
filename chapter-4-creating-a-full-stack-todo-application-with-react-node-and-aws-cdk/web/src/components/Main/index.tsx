@@ -11,7 +11,7 @@ import { MainContainer } from './styles';
 /* ----------
  * Add backend URL provided by the cdk deploy here!
  * ---------- */
-const backend_url = 'http://localhost:3333/';
+const backend_url = 'https://backend-cdk-book.westpoint.io';
 
 
 export const Main: React.FC = () => {
@@ -42,8 +42,8 @@ export const Main: React.FC = () => {
     setTodos(current_todos => [...current_todos, response.data.todo]);
   };
 
-  const to_complete = todos.filter(todo => !todo.completed).length;
-  const completed = todos.filter(todo => todo.completed).length;
+  const to_complete = todos.filter(todo => !todo.todo_completed).length;
+  const completed = todos.filter(todo => todo.todo_completed).length;
 
   return (
     <MainContainer>
@@ -56,7 +56,7 @@ export const Main: React.FC = () => {
 
 
       {todos.map(t => (
-        <Todo />
+        <Todo todo={t} />
       ))}
 
     </MainContainer>

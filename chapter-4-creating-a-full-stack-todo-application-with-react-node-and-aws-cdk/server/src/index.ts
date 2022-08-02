@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.post('/', async (req, res) => {
   try {
-    const { name, description, completed } = req.body;
+    const { todo_name, todo_description, todo_completed } = req.body;
 
     const sql = `
     INSERT INTO Todolist
@@ -27,9 +27,9 @@ app.post('/', async (req, res) => {
       )
       VALUES
         (
-          '${name}',
-          '${description}',
-          ${completed}
+          '${todo_name}',
+          '${todo_description}',
+          ${todo_completed}
         );
   `;
 
@@ -41,9 +41,9 @@ app.post('/', async (req, res) => {
 
     const todo: Todo = {
       id: insertId,
-      todo_completed: completed,
-      todo_description: description,
-      todo_name: name,
+      todo_completed,
+      todo_description,
+      todo_name,
     };
 
     return res.status(200).send({
@@ -74,6 +74,13 @@ app.get('/', async (_, res) => {
   }
 });
 
-app.listen(port, () => {
+app.get('/health', async (_, res) => {
+  return res.status(200).send({ status: 'available' });
+});
+
+const server = app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
+
+server.keepAliveTimeout = 30000;
+server.headersTimeout = 31000;

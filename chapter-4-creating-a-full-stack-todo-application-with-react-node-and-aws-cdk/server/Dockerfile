@@ -1,11 +1,19 @@
-FROM amd64/node:lts
+FROM node:lts-alpine@sha256:9a2db0008b592cfde1b98aa8972a8051ccb80bb51dde8b06c3a2e3762794e89c
+
+RUN apk add dumb-init
 
 WORKDIR /
 
-COPY . .
+COPY --chown=node:node . .
 
-RUN npm install && npm run build
+RUN npm install
+
+ENV NODE_ENV production
+
+RUN npm run build
 
 EXPOSE 80
 
-ENTRYPOINT ["npm", "run", "start"]
+USER node
+
+CMD ["dumb-init", "node", "src/index.js"]

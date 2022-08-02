@@ -1,9 +1,8 @@
 export namespace Interfaces {
   export interface Todo {
-    partition_key?: string;
-    sort_key?: string;
-    name: string;
-    description: string;
-    completed: boolean;
+    id?: number;
+    todo_name: string;
+    todo_description: string;
+    todo_completed: boolean;
   }
 }

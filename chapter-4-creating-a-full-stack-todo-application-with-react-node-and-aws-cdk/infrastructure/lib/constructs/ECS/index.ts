@@ -1,16 +1,25 @@
 import * as ecs from 'aws-cdk-lib/aws-ecs';
-import { CfnOutput, Duration } from 'aws-cdk-lib';
+import { CfnOutput, Duration, RemovalPolicy } from 'aws-cdk-lib';
 import { InstanceType, Vpc } from 'aws-cdk-lib/aws-ec2';
 import { Construct } from 'constructs';
 import {
   ApplicationListener,
   ApplicationLoadBalancer,
+  ApplicationProtocol,
+  Protocol,
 } from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 import { resolve } from 'path';
-import { RetentionDays } from 'aws-cdk-lib/aws-logs';
+import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
+import { ARecord, RecordTarget } from 'aws-cdk-lib/aws-route53';
+import { LoadBalancerTarget } from 'aws-cdk-lib/aws-route53-targets';
+
+import { ACM } from '../ACM';
+import { Route53 } from '../Route53';
 
 interface Props {
   vpc: Vpc;
+  acm: ACM;
+  route53: Route53;
 }
 
 export class ECS extends Construct {
@@ -26,8 +35,16 @@ export class ECS extends Construct {
 
   public readonly listener: ApplicationListener;
 
+  public readonly log_group: LogGroup;
+
   constructor(scope: Construct, id: string, props: Props) {
     super(scope, id);
+
+    this.log_group = new LogGroup(scope, 'ECSLogGroup', {
+      logGroupName: 'ecs-logs-chapter-4',
+      retention: RetentionDays.ONE_DAY,
+      removalPolicy: RemovalPolicy.DESTROY,
+    });
 
     this.cluster = new ecs.Cluster(scope, 'EcsCluster', { vpc: props.vpc });
 
@@ -39,12 +56,12 @@ export class ECS extends Construct {
 
     this.container = this.task_definition.addContainer('Express', {
       image: ecs.ContainerImage.fromAsset(
-        resolve(__dirname, '..', '..', '..', 'server'),
+        resolve(__dirname, '..', '..', '..', '..', 'server'),
       ),
       memoryLimitMiB: 256,
       logging: ecs.LogDriver.awsLogs({
         streamPrefix: 'chapter4',
-        logRetention: RetentionDays.ONE_DAY,
+        logGroup: this.log_group,
       }),
     });
 
@@ -61,15 +78,17 @@ export class ECS extends Construct {
     this.load_balancer = new ApplicationLoadBalancer(scope, 'LB', {
       vpc: props.vpc,
       internetFacing: true,
+      loadBalancerName: 'chapter4-lb',
     });
 
     this.listener = this.load_balancer.addListener('PublicListener', {
-      port: 80,
+      port: 443,
       open: true,
+      certificates: [props.acm.certificate],
     });
 
     this.listener.addTargets('ECS', {
-      port: 80,
+      protocol: ApplicationProtocol.HTTP,
       targets: [
         this.service.loadBalancerTarget({
           containerName: 'Express',
@@ -77,10 +96,21 @@ export class ECS extends Construct {
         }),
       ],
       healthCheck: {
-        interval: Duration.seconds(60),
+        protocol: Protocol.HTTP,
         path: '/health',
-        timeout: Duration.seconds(5),
+        timeout: Duration.seconds(10),
+        unhealthyThresholdCount: 5,
+        healthyThresholdCount: 5,
+        interval: Duration.seconds(60),
       },
+    });
+
+    new ARecord(this, 'BackendAliasRecord', {
+      zone: props.route53.hosted_zone,
+      target: RecordTarget.fromAlias(
+        new LoadBalancerTarget(this.load_balancer),
+      ),
+      recordName: 'backend-cdk-book.westpoint.io',
     });
 
     new CfnOutput(scope, 'BackendURL', {

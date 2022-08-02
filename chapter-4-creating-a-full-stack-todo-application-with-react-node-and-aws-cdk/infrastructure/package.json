@@ -5,6 +5,7 @@
     "chapter-4": "bin/chapter-4.js"
   },
   "scripts": {
+    "build:frontend": "cd ../web && yarn install && yarn build",
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
