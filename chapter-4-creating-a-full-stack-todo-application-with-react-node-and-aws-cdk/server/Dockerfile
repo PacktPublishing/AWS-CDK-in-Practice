@@ -16,4 +16,6 @@ EXPOSE 80
 
 USER node
 
-CMD ["dumb-init", "node", "src/index.js"]
+ENTRYPOINT ["dumb-init", "--"]
+
+CMD ["npm", "run", "forever"]

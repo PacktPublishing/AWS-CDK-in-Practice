@@ -39,7 +39,7 @@ export const init = () => {
 
       return pool;
     })
-    .catch(err => console.log(err));
+    .catch(() => 0);
 };
 
 export const execute = <T>(
@@ -54,7 +54,7 @@ export const execute = <T>(
 
     return new Promise<T>((resolve, reject) => {
       pool.query(query, params, (error, results) => {
-        if (error) reject(error);
+        if (error) reject(process.exit(1));
         else resolve(results);
       });
     });
