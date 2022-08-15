@@ -16,6 +16,8 @@ import { LoadBalancerTarget } from 'aws-cdk-lib/aws-route53-targets';
 import { ACM } from '../ACM';
 import { Route53 } from '../Route53';
 
+import { backend_subdomain, domain_name } from '../../../../config.json';
+
 interface Props {
   vpc: Vpc;
   acm: ACM;
@@ -110,7 +112,7 @@ export class ECS extends Construct {
       target: RecordTarget.fromAlias(
         new LoadBalancerTarget(this.load_balancer),
       ),
-      recordName: 'backend-cdk-book.westpoint.io',
+      recordName: `${backend_subdomain}.${domain_name}`,
     });
 
     new CfnOutput(scope, 'BackendURL', {

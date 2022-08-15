@@ -11,6 +11,8 @@ import { CloudFrontTarget } from 'aws-cdk-lib/aws-route53-targets';
 import { Route53 } from '../Route53';
 import { ACM } from '../ACM';
 
+import { domain_name, frontend_subdomain } from '../../../../config.json';
+
 interface Props {
   acm: ACM;
   route53: Route53;
@@ -52,7 +54,7 @@ export class S3 extends Construct {
 
     this.distribution = new Distribution(scope, 'Frontend-Distribution', {
       certificate: props.acm.certificate,
-      domainNames: ['frontend-cdk-book.westpoint.io'],
+      domainNames: [`${frontend_subdomain}.${domain_name}`],
       defaultRootObject: 'index.html',
       defaultBehavior: {
         origin: new S3Origin(this.web_bucket),
@@ -63,7 +65,7 @@ export class S3 extends Construct {
     new ARecord(scope, 'FrontendAliasRecord', {
       zone: props.route53.hosted_zone,
       target: RecordTarget.fromAlias(new CloudFrontTarget(this.distribution)),
-      recordName: 'frontend-cdk-book.westpoint.io',
+      recordName: `${frontend_subdomain}.${domain_name}`,
     });
 
     new CfnOutput(scope, 'FrontendURL', {
