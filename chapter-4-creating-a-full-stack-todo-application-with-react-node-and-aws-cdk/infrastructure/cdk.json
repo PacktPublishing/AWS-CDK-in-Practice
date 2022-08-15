@@ -18,7 +18,7 @@
   },
   "context": {
     "environment": {
-      "domain_name": "westpoint.io"
+      "domain_name": "cdkbook.click"
     },
     "@aws-cdk/aws-apigateway:usagePlanKeyOrderInsensitiveId": true,
     "@aws-cdk/core:stackRelativeExports": true,

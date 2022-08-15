@@ -110,7 +110,7 @@ export class ECS extends Construct {
       target: RecordTarget.fromAlias(
         new LoadBalancerTarget(this.load_balancer),
       ),
-      recordName: 'backend-cdk-book.westpoint.io',
+      recordName: 'backend.cdkbook.click',
     });
 
     new CfnOutput(scope, 'BackendURL', {

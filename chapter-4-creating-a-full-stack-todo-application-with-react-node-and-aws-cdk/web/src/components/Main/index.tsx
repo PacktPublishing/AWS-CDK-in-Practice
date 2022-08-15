@@ -11,7 +11,7 @@ import { MainContainer } from './styles';
 /* ----------
  * Add backend URL provided by the cdk deploy here!
  * ---------- */
-const backend_url = 'https://backend-cdk-book.westpoint.io';
+const backend_url = 'https://backend.cdkbook.click';
 
 
 export const Main: React.FC = () => {

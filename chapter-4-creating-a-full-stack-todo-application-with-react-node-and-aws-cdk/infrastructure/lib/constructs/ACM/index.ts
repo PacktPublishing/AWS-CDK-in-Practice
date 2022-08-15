@@ -18,7 +18,7 @@ export class ACM extends Construct {
       domainName: domain_name,
       region: 'us-east-1',
       hostedZone: props.hosted_zone,
-      subjectAlternativeNames: ['*.westpoint.io'],
+      subjectAlternativeNames: ['*.cdkbook.click'],
     });
   }
 }

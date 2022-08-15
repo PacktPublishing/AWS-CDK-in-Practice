@@ -52,7 +52,7 @@ export class S3 extends Construct {
 
     this.distribution = new Distribution(scope, 'Frontend-Distribution', {
       certificate: props.acm.certificate,
-      domainNames: ['frontend-cdk-book.westpoint.io'],
+      domainNames: ['frontend.cdkbook.click'],
       defaultRootObject: 'index.html',
       defaultBehavior: {
         origin: new S3Origin(this.web_bucket),
@@ -63,7 +63,7 @@ export class S3 extends Construct {
     new ARecord(scope, 'FrontendAliasRecord', {
       zone: props.route53.hosted_zone,
       target: RecordTarget.fromAlias(new CloudFrontTarget(this.distribution)),
-      recordName: 'frontend-cdk-book.westpoint.io',
+      recordName: 'frontend.cdkbook.click',
     });
 
     new CfnOutput(scope, 'FrontendURL', {
