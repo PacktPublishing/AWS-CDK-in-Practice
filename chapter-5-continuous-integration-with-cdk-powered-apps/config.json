@@ -1,0 +1,7 @@
+{
+  "domain_name": "sandbox.westpoint.io",
+  "backend_subdomain": "backend-cdk-book",
+  "frontend_subdomain": "frontend-cdk-book",
+  "backend_dev_subdomain": "dev-backend-cdk-book",
+  "frontend_dev_subdomain": "dev-frontend-cdk-book"
+}

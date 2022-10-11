@@ -1,0 +1,14 @@
+{
+  "name": "rds-init-script",
+  "version": "1.0.0",
+  "description": "RDS initialization implementation in Node.js",
+  "main": "index.js",
+  "scripts": {
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
+}
