@@ -1,0 +1,17 @@
+*.js
+!jest.config.js
+*.d.ts
+node_modules
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+!lib/constructs/RDS/init/index.js
+
+!prettier.config.js
+cdk.context.json
+
+.env
+.env.*
+config.json
