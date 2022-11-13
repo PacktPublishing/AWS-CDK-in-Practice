@@ -6,8 +6,7 @@ import { IBucket } from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
 
 /* ---------- Constructs ---------- */
-import { ProductionPipeline } from './constructs/Pipeline/Environments/Production';
-import { DevelopmentPipeline } from './constructs/Pipeline/Environments/Development';
+import { PipelineStack } from './constructs/Pipeline/index';
 
 interface PipelineProps extends StackProps {
   bucket?: IBucket;
@@ -20,11 +19,11 @@ export class Chapter5PipelineStack extends Stack {
     super(scope, id, props);
 
     /* ---------- Constructs ---------- */
-    new ProductionPipeline(this, 'Chapter5-Pipeline-Prod', {
+    new PipelineStack(this, 'Chapter5-Pipeline-Prod', {
       environment: 'Production',
     });
 
-    new DevelopmentPipeline(this, 'Chapter5-Pipeline-Dev', {
+    new PipelineStack(this, 'Chapter5-Pipeline-Dev', {
       environment: 'Development',
     });
 

@@ -9,9 +9,9 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk:dev": "cross-env NODE_ENV=Development DOTENV_CONFIG_PATH=./.env.production CDK_MODE=ONLY_DEV cdk",
+    "cdk:dev": "cross-env NODE_ENV=Development DOTENV_CONFIG_PATH=./.env.development CDK_MODE=ONLY_DEV cdk",
     "cdk": "cross-env NODE_ENV=Production DOTENV_CONFIG_PATH=./.env.production CDK_MODE=ONLY_PROD cdk",
-    "cdk:pipeline": "cross-env DOTENV_CONFIG_PATH=./.env.development CDK_MODE=ONLY_PIPELINE cdk"
+    "cdk:pipeline": "cross-env CDK_MODE=ONLY_PIPELINE cdk"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
