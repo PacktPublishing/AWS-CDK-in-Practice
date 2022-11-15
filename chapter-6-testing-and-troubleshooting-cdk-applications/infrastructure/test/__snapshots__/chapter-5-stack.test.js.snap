@@ -1,0 +1,2792 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing Chapter 5 code. Matches the snapshot. 1`] = `
+{
+  "Mappings": {
+    "AWSCloudFrontPartitionHostedZoneIdMap": {
+      "aws": {
+        "zoneId": "Z2FDTNDATAQYW2",
+      },
+      "aws-cn": {
+        "zoneId": "Z3RFFRIM2A3IF5",
+      },
+    },
+  },
+  "Outputs": {
+    "BackendURL": {
+      "Value": {
+        "Fn::GetAtt": [
+          "LBtestD8BBA2D8",
+          "DNSName",
+        ],
+      },
+    },
+    "FrontendURLtest": {
+      "Value": {
+        "Fn::GetAtt": [
+          "WebBuckettest1D7CD72B",
+          "DomainName",
+        ],
+      },
+    },
+    "RdsInitFnResponsetest": {
+      "Value": {
+        "Fn::GetAtt": [
+          "AwsCustomResource57FD4BB5",
+          "Payload",
+        ],
+      },
+    },
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+    "SsmParameterValueawsserviceecsoptimizedamiamazonlinux2recommendedimageidC96584B6F00A464EAD1953AFF4B05118Parameter": {
+      "Default": "/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id",
+      "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+    },
+  },
+  "Resources": {
+    "AWS679f53fac002430cb0da5b7982bd22872D164C4C": {
+      "DependsOn": [
+        "AwsCustomResourceRoleDefaultPolicy4EC1C81B",
+        "AwsCustomResourceRole54BBCF34",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": "cdk-hnb659fds-assets-045318428128-us-east-1",
+          "S3Key": "6dbd112fe448437b3438da4382c72fccbb7d2ee1543db222620d7447fffebc50.zip",
+        },
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "AwsCustomResourceRole54BBCF34",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 600,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "AwsCustomResource57FD4BB5": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "AwsCustomResourceCustomResourcePolicyC0817817",
+        "MySQLRDSInstancetestF8904F74",
+        "MySQLRDSInstancetestSecurityGroupfromChapter5StackEcsClustertestDefaultAutoScalingGrouptestInstanceSecurityGroup37229BA33306BBD9FE4A",
+        "MySQLRDSInstancetestSecurityGroupfromChapter5StackFunctionSecurityGroupC4560F763306ECEE8B7D",
+        "MySQLRDSInstancetestSecurityGroup398DA52E",
+        "MySQLRDSInstancetestSubnetGroup25CB9581",
+      ],
+      "Properties": {
+        "Create": {
+          "Fn::Join": [
+            "",
+            [
+              "{"service":"Lambda","action":"invoke","parameters":{"FunctionName":"",
+              {
+                "Ref": "Function76856677",
+              },
+              "","Payload":"{\\"params\\":{\\"config\\":{\\"credentials_secret_name\\":\\"chapter-5/rds/my-sql-instance-test\\"}}}"},"physicalResourceId":{"id":"MyRdsInit-test-AwsSdkCall-",
+              {
+                "Fn::GetAtt": [
+                  "FunctionCurrentVersion4E2B226105a6b2f5d5ae87a3c8a14269493a89dc",
+                  "Version",
+                ],
+              },
+              "4f0dba"}}",
+            ],
+          ],
+        },
+        "InstallLatestAwsSdk": true,
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+            "Arn",
+          ],
+        },
+        "Update": {
+          "Fn::Join": [
+            "",
+            [
+              "{"service":"Lambda","action":"invoke","parameters":{"FunctionName":"",
+              {
+                "Ref": "Function76856677",
+              },
+              "","Payload":"{\\"params\\":{\\"config\\":{\\"credentials_secret_name\\":\\"chapter-5/rds/my-sql-instance-test\\"}}}"},"physicalResourceId":{"id":"MyRdsInit-test-AwsSdkCall-",
+              {
+                "Fn::GetAtt": [
+                  "FunctionCurrentVersion4E2B226105a6b2f5d5ae87a3c8a14269493a89dc",
+                  "Version",
+                ],
+              },
+              "4f0dba"}}",
+            ],
+          ],
+        },
+      },
+      "Type": "Custom::AWS",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "AwsCustomResourceCustomResourcePolicyC0817817": {
+      "DependsOn": [
+        "MySQLRDSInstancetestF8904F74",
+        "MySQLRDSInstancetestSecurityGroupfromChapter5StackEcsClustertestDefaultAutoScalingGrouptestInstanceSecurityGroup37229BA33306BBD9FE4A",
+        "MySQLRDSInstancetestSecurityGroupfromChapter5StackFunctionSecurityGroupC4560F763306ECEE8B7D",
+        "MySQLRDSInstancetestSecurityGroup398DA52E",
+        "MySQLRDSInstancetestSubnetGroup25CB9581",
+      ],
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "lambda:Invoke",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "AwsCustomResourceCustomResourcePolicyC0817817",
+        "Roles": [
+          {
+            "Ref": "AwsCustomResourceRole54BBCF34",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "AwsCustomResourceRole54BBCF34": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "AwsCustomResourceRoleDefaultPolicy4EC1C81B": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": "arn:aws:lambda:us-east-1:045318428128:function:*-ResInitChapter5Stack",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "AwsCustomResourceRoleDefaultPolicy4EC1C81B",
+        "Roles": [
+          {
+            "Ref": "AwsCustomResourceRole54BBCF34",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "CertificateCertificateRequestorFunction5E845413": {
+      "DependsOn": [
+        "CertificateCertificateRequestorFunctionServiceRoleDefaultPolicy3C8845BC",
+        "CertificateCertificateRequestorFunctionServiceRoleC04C13DA",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": "cdk-hnb659fds-assets-045318428128-us-east-1",
+          "S3Key": "8ddf29ab619460567d3cda58de2ff1bf0f6e95d8822ff630ec58a4d52ed1fa67.zip",
+        },
+        "Handler": "index.certificateRequestHandler",
+        "Role": {
+          "Fn::GetAtt": [
+            "CertificateCertificateRequestorFunctionServiceRoleC04C13DA",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CertificateCertificateRequestorFunctionServiceRoleC04C13DA": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "CertificateCertificateRequestorFunctionServiceRoleDefaultPolicy3C8845BC": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "acm:RequestCertificate",
+                "acm:DescribeCertificate",
+                "acm:DeleteCertificate",
+                "acm:AddTagsToCertificate",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": "route53:GetChange",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": "route53:changeResourceRecordSets",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":route53:::hostedzone/DUMMY",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "CertificateCertificateRequestorFunctionServiceRoleDefaultPolicy3C8845BC",
+        "Roles": [
+          {
+            "Ref": "CertificateCertificateRequestorFunctionServiceRoleC04C13DA",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "CertificateCertificateRequestorResource2890C6B7": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "DomainName": "sandbox.westpoint.io",
+        "HostedZoneId": "DUMMY",
+        "Region": "us-east-1",
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "CertificateCertificateRequestorFunction5E845413",
+            "Arn",
+          ],
+        },
+        "SubjectAlternativeNames": [
+          "*.sandbox.westpoint.io",
+        ],
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536": {
+      "DependsOn": [
+        "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
+        "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": "cdk-hnb659fds-assets-045318428128-us-east-1",
+          "S3Key": "f98b78092dcdd31f5e6d47489beb5f804d4835ef86a8085d0a2053cb9ae711da.zip",
+        },
+        "Handler": "index.handler",
+        "Layers": [
+          {
+            "Ref": "WebBucketDeploymenttestAwsCliLayer41AD4280",
+          },
+        ],
+        "Role": {
+          "Fn::GetAtt": [
+            "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.7",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::cdk-hnb659fds-assets-045318428128-us-east-1",
+                    ],
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::cdk-hnb659fds-assets-045318428128-us-east-1/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject",
+                "s3:PutObjectLegalHold",
+                "s3:PutObjectRetention",
+                "s3:PutObjectTagging",
+                "s3:PutObjectVersionTagging",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "WebBuckettest1D7CD72B",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "WebBuckettest1D7CD72B",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
+        "Roles": [
+          {
+            "Ref": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F": {
+      "DependsOn": [
+        "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": "cdk-hnb659fds-assets-045318428128-us-east-1",
+          "S3Key": "e57c1acaa363d7d2b81736776007a7091bc73dff4aeb8135627c4511a51e7dca.zip",
+        },
+        "Description": {
+          "Fn::Join": [
+            "",
+            [
+              "Lambda function for auto-deleting objects in ",
+              {
+                "Ref": "WebBuckettest1D7CD72B",
+              },
+              " S3 bucket.",
+            ],
+          ],
+        },
+        "Handler": "__entrypoint__.handler",
+        "MemorySize": 128,
+        "Role": {
+          "Fn::GetAtt": [
+            "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Sub": "arn:\${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ECSLogGrouptest6EE193AA": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "LogGroupName": "ecs-logs-chapter-5-test",
+        "RetentionInDays": 1,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "ECStestBackendAliasRecord3461DA36": {
+      "Properties": {
+        "AliasTarget": {
+          "DNSName": {
+            "Fn::Join": [
+              "",
+              [
+                "dualstack.",
+                {
+                  "Fn::GetAtt": [
+                    "LBtestD8BBA2D8",
+                    "DNSName",
+                  ],
+                },
+              ],
+            ],
+          },
+          "HostedZoneId": {
+            "Fn::GetAtt": [
+              "LBtestD8BBA2D8",
+              "CanonicalHostedZoneID",
+            ],
+          },
+        },
+        "HostedZoneId": "DUMMY",
+        "Name": "dev-backend-cdk-book.sandbox.westpoint.io.",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "EcsClustertestDefaultAutoScalingGrouptestASG768A8B2E": {
+      "Properties": {
+        "LaunchConfigurationName": {
+          "Ref": "EcsClustertestDefaultAutoScalingGrouptestLaunchConfigBA7CBB11",
+        },
+        "MaxSize": "1",
+        "MinSize": "1",
+        "Tags": [
+          {
+            "Key": "Name",
+            "PropagateAtLaunch": true,
+            "Value": "Default/Chapter5Stack/EcsCluster-test/DefaultAutoScalingGroup-test",
+          },
+        ],
+        "VPCZoneIdentifier": [
+          {
+            "Ref": "MyVPCtestcomputeSubnet1SubnetFA9BDFAD",
+          },
+          {
+            "Ref": "MyVPCtestcomputeSubnet2SubnetF7A93A75",
+          },
+          {
+            "Ref": "MyVPCtestcomputeSubnet3Subnet847B4232",
+          },
+        ],
+      },
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "UpdatePolicy": {
+        "AutoScalingReplacingUpdate": {
+          "WillReplace": true,
+        },
+        "AutoScalingScheduledAction": {
+          "IgnoreUnmodifiedGroupSizeProperties": true,
+        },
+      },
+    },
+    "EcsClustertestDefaultAutoScalingGrouptestDrainECSHookFunctionAllowInvokeChapter5StackEcsClustertestDefaultAutoScalingGrouptestLifecycleHookDrainHookTopic9AB91E045E821C6B": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "EcsClustertestDefaultAutoScalingGrouptestDrainECSHookFunctionE9FC34D0",
+            "Arn",
+          ],
+        },
+        "Principal": "sns.amazonaws.com",
+        "SourceArn": {
+          "Ref": "EcsClustertestDefaultAutoScalingGrouptestLifecycleHookDrainHookTopic404D08C1",
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "EcsClustertestDefaultAutoScalingGrouptestDrainECSHookFunctionE9FC34D0": {
+      "DependsOn": [
+        "EcsClustertestDefaultAutoScalingGrouptestDrainECSHookFunctionServiceRoleDefaultPolicyE4399614",
+        "EcsClustertestDefaultAutoScalingGrouptestDrainECSHookFunctionServiceRole927DDFD5",
+      ],
+      "Properties": {
+        "Code": {
+          "ZipFile": "import boto3, json, os, time
+
+ecs = boto3.client('ecs')
+autoscaling = boto3.client('autoscaling')
+
+
+def lambda_handler(event, context):
+  print(json.dumps(dict(event, ResponseURL='...')))
+  cluster = os.environ['CLUSTER']
+  snsTopicArn = event['Records'][0]['Sns']['TopicArn']
+  lifecycle_event = json.loads(event['Records'][0]['Sns']['Message'])
+  instance_id = lifecycle_event.get('EC2InstanceId')
+  if not instance_id:
+    print('Got event without EC2InstanceId: %s', json.dumps(dict(event, ResponseURL='...')))
+    return
+
+  instance_arn = container_instance_arn(cluster, instance_id)
+  print('Instance %s has container instance ARN %s' % (lifecycle_event['EC2InstanceId'], instance_arn))
+
+  if not instance_arn:
+    return
+
+  task_arns = container_instance_task_arns(cluster, instance_arn)
+
+  if task_arns:
+    print('Instance ARN %s has task ARNs %s' % (instance_arn, ', '.join(task_arns)))
+
+  while has_tasks(cluster, instance_arn, task_arns):
+    time.sleep(10)
+
+  try:
+    print('Terminating instance %s' % instance_id)
+    autoscaling.complete_lifecycle_action(
+        LifecycleActionResult='CONTINUE',
+        **pick(lifecycle_event, 'LifecycleHookName', 'LifecycleActionToken', 'AutoScalingGroupName'))
+  except Exception as e:
+    # Lifecycle action may have already completed.
+    print(str(e))
+
+
+def container_instance_arn(cluster, instance_id):
+  """Turn an instance ID into a container instance ARN."""
+  arns = ecs.list_container_instances(cluster=cluster, filter='ec2InstanceId==' + instance_id)['containerInstanceArns']
+  if not arns:
+    return None
+  return arns[0]
+
+def container_instance_task_arns(cluster, instance_arn):
+  """Fetch tasks for a container instance ARN."""
+  arns = ecs.list_tasks(cluster=cluster, containerInstance=instance_arn)['taskArns']
+  return arns
+
+def has_tasks(cluster, instance_arn, task_arns):
+  """Return True if the instance is running tasks for the given cluster."""
+  instances = ecs.describe_container_instances(cluster=cluster, containerInstances=[instance_arn])['containerInstances']
+  if not instances:
+    return False
+  instance = instances[0]
+
+  if instance['status'] == 'ACTIVE':
+    # Start draining, then try again later
+    set_container_instance_to_draining(cluster, instance_arn)
+    return True
+
+  task_count = None
+
+  if task_arns:
+    # Fetch details for tasks running on the container instance
+    tasks = ecs.describe_tasks(cluster=cluster, tasks=task_arns)['tasks']
+    if tasks:
+      # Consider any non-stopped tasks as running
+      task_count = sum(task['lastStatus'] != 'STOPPED' for task in tasks) + instance['pendingTasksCount']
+
+  if not task_count:
+    # Fallback to instance task counts if detailed task information is unavailable
+    task_count = instance['runningTasksCount'] + instance['pendingTasksCount']
+
+  print('Instance %s has %s tasks' % (instance_arn, task_count))
+
+  return task_count > 0
+
+def set_container_instance_to_draining(cluster, instance_arn):
+  ecs.update_container_instances_state(
+      cluster=cluster,
+      containerInstances=[instance_arn], status='DRAINING')
+
+
+def pick(dct, *keys):
+  """Pick a subset of a dict."""
+  return {k: v for k, v in dct.items() if k in keys}
+",
+        },
+        "Environment": {
+          "Variables": {
+            "CLUSTER": {
+              "Ref": "EcsClustertestFADE5569",
+            },
+          },
+        },
+        "Handler": "index.lambda_handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "EcsClustertestDefaultAutoScalingGrouptestDrainECSHookFunctionServiceRole927DDFD5",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.9",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/EcsCluster-test/DefaultAutoScalingGroup-test",
+          },
+        ],
+        "Timeout": 310,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "EcsClustertestDefaultAutoScalingGrouptestDrainECSHookFunctionServiceRole927DDFD5": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/EcsCluster-test/DefaultAutoScalingGroup-test",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "EcsClustertestDefaultAutoScalingGrouptestDrainECSHookFunctionServiceRoleDefaultPolicyE4399614": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "ec2:DescribeInstances",
+                "ec2:DescribeInstanceAttribute",
+                "ec2:DescribeInstanceStatus",
+                "ec2:DescribeHosts",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": "autoscaling:CompleteLifecycleAction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":autoscaling:us-east-1:045318428128:autoScalingGroup:*:autoScalingGroupName/",
+                    {
+                      "Ref": "EcsClustertestDefaultAutoScalingGrouptestASG768A8B2E",
+                    },
+                  ],
+                ],
+              },
+            },
+            {
+              "Action": [
+                "ecs:DescribeContainerInstances",
+                "ecs:DescribeTasks",
+              ],
+              "Condition": {
+                "ArnEquals": {
+                  "ecs:cluster": {
+                    "Fn::GetAtt": [
+                      "EcsClustertestFADE5569",
+                      "Arn",
+                    ],
+                  },
+                },
+              },
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": [
+                "ecs:ListContainerInstances",
+                "ecs:SubmitContainerStateChange",
+                "ecs:SubmitTaskStateChange",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "EcsClustertestFADE5569",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": [
+                "ecs:UpdateContainerInstancesState",
+                "ecs:ListTasks",
+              ],
+              "Condition": {
+                "ArnEquals": {
+                  "ecs:cluster": {
+                    "Fn::GetAtt": [
+                      "EcsClustertestFADE5569",
+                      "Arn",
+                    ],
+                  },
+                },
+              },
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "EcsClustertestDefaultAutoScalingGrouptestDrainECSHookFunctionServiceRoleDefaultPolicyE4399614",
+        "Roles": [
+          {
+            "Ref": "EcsClustertestDefaultAutoScalingGrouptestDrainECSHookFunctionServiceRole927DDFD5",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "EcsClustertestDefaultAutoScalingGrouptestDrainECSHookFunctionTopic4D6AEB1D": {
+      "Properties": {
+        "Endpoint": {
+          "Fn::GetAtt": [
+            "EcsClustertestDefaultAutoScalingGrouptestDrainECSHookFunctionE9FC34D0",
+            "Arn",
+          ],
+        },
+        "Protocol": "lambda",
+        "TopicArn": {
+          "Ref": "EcsClustertestDefaultAutoScalingGrouptestLifecycleHookDrainHookTopic404D08C1",
+        },
+      },
+      "Type": "AWS::SNS::Subscription",
+    },
+    "EcsClustertestDefaultAutoScalingGrouptestInstanceProfile3992C52F": {
+      "Properties": {
+        "Roles": [
+          {
+            "Ref": "EcsClustertestDefaultAutoScalingGrouptestInstanceRoleAE0EDC54",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::InstanceProfile",
+    },
+    "EcsClustertestDefaultAutoScalingGrouptestInstanceRoleAE0EDC54": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ec2.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/EcsCluster-test/DefaultAutoScalingGroup-test",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "EcsClustertestDefaultAutoScalingGrouptestInstanceRoleDefaultPolicyF3251F1F": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "ecs:DeregisterContainerInstance",
+                "ecs:RegisterContainerInstance",
+                "ecs:Submit*",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "EcsClustertestFADE5569",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": [
+                "ecs:Poll",
+                "ecs:StartTelemetrySession",
+              ],
+              "Condition": {
+                "ArnEquals": {
+                  "ecs:cluster": {
+                    "Fn::GetAtt": [
+                      "EcsClustertestFADE5569",
+                      "Arn",
+                    ],
+                  },
+                },
+              },
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": [
+                "ecs:DiscoverPollEndpoint",
+                "ecr:GetAuthorizationToken",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "EcsClustertestDefaultAutoScalingGrouptestInstanceRoleDefaultPolicyF3251F1F",
+        "Roles": [
+          {
+            "Ref": "EcsClustertestDefaultAutoScalingGrouptestInstanceRoleAE0EDC54",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "EcsClustertestDefaultAutoScalingGrouptestInstanceSecurityGroup79DC8D4F": {
+      "Properties": {
+        "GroupDescription": "Default/Chapter5Stack/EcsCluster-test/DefaultAutoScalingGroup-test/InstanceSecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/EcsCluster-test/DefaultAutoScalingGroup-test",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "EcsClustertestDefaultAutoScalingGrouptestInstanceSecurityGroupfromChapter5StackLBtestSecurityGroup17ACEE543276865535117FEE67": {
+      "Properties": {
+        "Description": "Load balancer to target",
+        "FromPort": 32768,
+        "GroupId": {
+          "Fn::GetAtt": [
+            "EcsClustertestDefaultAutoScalingGrouptestInstanceSecurityGroup79DC8D4F",
+            "GroupId",
+          ],
+        },
+        "IpProtocol": "tcp",
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
+            "LBtestSecurityGroup85865F4C",
+            "GroupId",
+          ],
+        },
+        "ToPort": 65535,
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress",
+    },
+    "EcsClustertestDefaultAutoScalingGrouptestLaunchConfigBA7CBB11": {
+      "DependsOn": [
+        "EcsClustertestDefaultAutoScalingGrouptestInstanceRoleDefaultPolicyF3251F1F",
+        "EcsClustertestDefaultAutoScalingGrouptestInstanceRoleAE0EDC54",
+      ],
+      "Properties": {
+        "IamInstanceProfile": {
+          "Ref": "EcsClustertestDefaultAutoScalingGrouptestInstanceProfile3992C52F",
+        },
+        "ImageId": {
+          "Ref": "SsmParameterValueawsserviceecsoptimizedamiamazonlinux2recommendedimageidC96584B6F00A464EAD1953AFF4B05118Parameter",
+        },
+        "InstanceType": "t2.micro",
+        "SecurityGroups": [
+          {
+            "Fn::GetAtt": [
+              "EcsClustertestDefaultAutoScalingGrouptestInstanceSecurityGroup79DC8D4F",
+              "GroupId",
+            ],
+          },
+        ],
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/bin/bash
+echo ECS_CLUSTER=",
+                {
+                  "Ref": "EcsClustertestFADE5569",
+                },
+                " >> /etc/ecs/ecs.config
+sudo iptables --insert FORWARD 1 --in-interface docker+ --destination 169.254.169.254/32 --jump DROP
+sudo service iptables save
+echo ECS_AWSVPC_BLOCK_IMDS=true >> /etc/ecs/ecs.config",
+              ],
+            ],
+          },
+        },
+      },
+      "Type": "AWS::AutoScaling::LaunchConfiguration",
+    },
+    "EcsClustertestDefaultAutoScalingGrouptestLifecycleHookDrainHook68491944": {
+      "DependsOn": [
+        "EcsClustertestDefaultAutoScalingGrouptestLifecycleHookDrainHookRoleDefaultPolicyD6EED7A7",
+        "EcsClustertestDefaultAutoScalingGrouptestLifecycleHookDrainHookRole2E420B52",
+      ],
+      "Properties": {
+        "AutoScalingGroupName": {
+          "Ref": "EcsClustertestDefaultAutoScalingGrouptestASG768A8B2E",
+        },
+        "DefaultResult": "CONTINUE",
+        "HeartbeatTimeout": 300,
+        "LifecycleTransition": "autoscaling:EC2_INSTANCE_TERMINATING",
+        "NotificationTargetARN": {
+          "Ref": "EcsClustertestDefaultAutoScalingGrouptestLifecycleHookDrainHookTopic404D08C1",
+        },
+        "RoleARN": {
+          "Fn::GetAtt": [
+            "EcsClustertestDefaultAutoScalingGrouptestLifecycleHookDrainHookRole2E420B52",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::AutoScaling::LifecycleHook",
+    },
+    "EcsClustertestDefaultAutoScalingGrouptestLifecycleHookDrainHookRole2E420B52": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "autoscaling.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/EcsCluster-test/DefaultAutoScalingGroup-test",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "EcsClustertestDefaultAutoScalingGrouptestLifecycleHookDrainHookRoleDefaultPolicyD6EED7A7": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sns:Publish",
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "EcsClustertestDefaultAutoScalingGrouptestLifecycleHookDrainHookTopic404D08C1",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "EcsClustertestDefaultAutoScalingGrouptestLifecycleHookDrainHookRoleDefaultPolicyD6EED7A7",
+        "Roles": [
+          {
+            "Ref": "EcsClustertestDefaultAutoScalingGrouptestLifecycleHookDrainHookRole2E420B52",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "EcsClustertestDefaultAutoScalingGrouptestLifecycleHookDrainHookTopic404D08C1": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/EcsCluster-test/DefaultAutoScalingGroup-test",
+          },
+        ],
+      },
+      "Type": "AWS::SNS::Topic",
+    },
+    "EcsClustertestFADE5569": {
+      "Type": "AWS::ECS::Cluster",
+    },
+    "FrontendAliasRecordtestC1E84708": {
+      "Properties": {
+        "AliasTarget": {
+          "DNSName": {
+            "Fn::GetAtt": [
+              "FrontendDistributiontest4E4F0DEB",
+              "DomainName",
+            ],
+          },
+          "HostedZoneId": {
+            "Fn::FindInMap": [
+              "AWSCloudFrontPartitionHostedZoneIdMap",
+              {
+                "Ref": "AWS::Partition",
+              },
+              "zoneId",
+            ],
+          },
+        },
+        "HostedZoneId": "DUMMY",
+        "Name": "dev-frontend-cdk-book.sandbox.westpoint.io.",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "FrontendDistributiontest4E4F0DEB": {
+      "Properties": {
+        "DistributionConfig": {
+          "Aliases": [
+            "dev-frontend-cdk-book.sandbox.westpoint.io",
+          ],
+          "DefaultCacheBehavior": {
+            "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
+            "Compress": true,
+            "TargetOriginId": "Chapter5StackFrontendDistributiontestOrigin144CCD22D",
+            "ViewerProtocolPolicy": "redirect-to-https",
+          },
+          "DefaultRootObject": "index.html",
+          "Enabled": true,
+          "HttpVersion": "http2",
+          "IPV6Enabled": true,
+          "Origins": [
+            {
+              "CustomOriginConfig": {
+                "OriginProtocolPolicy": "http-only",
+                "OriginSSLProtocols": [
+                  "TLSv1.2",
+                ],
+              },
+              "DomainName": {
+                "Fn::Select": [
+                  2,
+                  {
+                    "Fn::Split": [
+                      "/",
+                      {
+                        "Fn::GetAtt": [
+                          "WebBuckettest1D7CD72B",
+                          "WebsiteURL",
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              "Id": "Chapter5StackFrontendDistributiontestOrigin144CCD22D",
+            },
+          ],
+          "ViewerCertificate": {
+            "AcmCertificateArn": {
+              "Fn::GetAtt": [
+                "CertificateCertificateRequestorResource2890C6B7",
+                "Arn",
+              ],
+            },
+            "MinimumProtocolVersion": "TLSv1.2_2021",
+            "SslSupportMethod": "sni-only",
+          },
+        },
+      },
+      "Type": "AWS::CloudFront::Distribution",
+    },
+    "Function76856677": {
+      "DependsOn": [
+        "FunctionServiceRoleDefaultPolicy2F49994A",
+        "FunctionServiceRole675BB04A",
+      ],
+      "Properties": {
+        "Code": {
+          "ImageUri": {
+            "Fn::Sub": "045318428128.dkr.ecr.us-east-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-045318428128-us-east-1:2a261ce05489114f6b967cf7445c3d18a84364220a596b2ad1238d82bf769890",
+          },
+        },
+        "FunctionName": "MyRdsInit-test-ResInitChapter5Stack",
+        "MemorySize": 128,
+        "PackageType": "Image",
+        "Role": {
+          "Fn::GetAtt": [
+            "FunctionServiceRole675BB04A",
+            "Arn",
+          ],
+        },
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "FunctionSecurityGroup242362F8",
+                "GroupId",
+              ],
+            },
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "MyVPCtestcomputeSubnet1SubnetFA9BDFAD",
+            },
+            {
+              "Ref": "MyVPCtestcomputeSubnet2SubnetF7A93A75",
+            },
+            {
+              "Ref": "MyVPCtestcomputeSubnet3Subnet847B4232",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "FunctionCurrentVersion4E2B226105a6b2f5d5ae87a3c8a14269493a89dc": {
+      "Properties": {
+        "FunctionName": {
+          "Ref": "Function76856677",
+        },
+      },
+      "Type": "AWS::Lambda::Version",
+    },
+    "FunctionLogRetention5FDF6B4D": {
+      "Properties": {
+        "LogGroupName": {
+          "Fn::Join": [
+            "",
+            [
+              "/aws/lambda/",
+              {
+                "Ref": "Function76856677",
+              },
+            ],
+          ],
+        },
+        "RetentionInDays": 150,
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::LogRetention",
+    },
+    "FunctionSecurityGroup242362F8": {
+      "Properties": {
+        "GroupDescription": "Default/Chapter5Stack/Function-SecurityGroup",
+        "GroupName": "MyRdsInit-testFunctionSecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "FunctionServiceRole675BB04A": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "FunctionServiceRoleDefaultPolicy2F49994A": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "MySQLCredentialstestA71485A8",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "FunctionServiceRoleDefaultPolicy2F49994A",
+        "Roles": [
+          {
+            "Ref": "FunctionServiceRole675BB04A",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "LBtestD8BBA2D8": {
+      "DependsOn": [
+        "MyVPCtestingressSubnet1DefaultRoute674C91B0",
+        "MyVPCtestingressSubnet2DefaultRoute091F9DBA",
+        "MyVPCtestingressSubnet3DefaultRoute511A8760",
+      ],
+      "Properties": {
+        "LoadBalancerAttributes": [
+          {
+            "Key": "deletion_protection.enabled",
+            "Value": "false",
+          },
+        ],
+        "Name": "chapter5-lb-test",
+        "Scheme": "internet-facing",
+        "SecurityGroups": [
+          {
+            "Fn::GetAtt": [
+              "LBtestSecurityGroup85865F4C",
+              "GroupId",
+            ],
+          },
+        ],
+        "Subnets": [
+          {
+            "Ref": "MyVPCtestingressSubnet1SubnetB5B2AF9E",
+          },
+          {
+            "Ref": "MyVPCtestingressSubnet2SubnetD9150D71",
+          },
+          {
+            "Ref": "MyVPCtestingressSubnet3Subnet80E2293D",
+          },
+        ],
+        "Type": "application",
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+    },
+    "LBtestPublicListenertestD2501AEF": {
+      "Properties": {
+        "Certificates": [
+          {
+            "CertificateArn": {
+              "Fn::GetAtt": [
+                "CertificateCertificateRequestorResource2890C6B7",
+                "Arn",
+              ],
+            },
+          },
+        ],
+        "DefaultActions": [
+          {
+            "TargetGroupArn": {
+              "Ref": "LBtestPublicListenertestECStestGroupEB92A2B0",
+            },
+            "Type": "forward",
+          },
+        ],
+        "LoadBalancerArn": {
+          "Ref": "LBtestD8BBA2D8",
+        },
+        "Port": 443,
+        "Protocol": "HTTPS",
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+    },
+    "LBtestPublicListenertestECStestGroupEB92A2B0": {
+      "Properties": {
+        "HealthCheckIntervalSeconds": 60,
+        "HealthCheckPath": "/health",
+        "HealthCheckProtocol": "HTTP",
+        "HealthCheckTimeoutSeconds": 10,
+        "HealthyThresholdCount": 5,
+        "Port": 80,
+        "Protocol": "HTTP",
+        "TargetGroupAttributes": [
+          {
+            "Key": "stickiness.enabled",
+            "Value": "false",
+          },
+        ],
+        "TargetType": "instance",
+        "UnhealthyThresholdCount": 5,
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+    },
+    "LBtestSecurityGroup85865F4C": {
+      "Properties": {
+        "GroupDescription": "Automatically created Security Group for ELB Chapter5StackLBtest092376DF",
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow from anyone on port 443",
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "LBtestSecurityGrouptoChapter5StackEcsClustertestDefaultAutoScalingGrouptestInstanceSecurityGroup37229BA332768655356F7AD079": {
+      "Properties": {
+        "Description": "Load balancer to target",
+        "DestinationSecurityGroupId": {
+          "Fn::GetAtt": [
+            "EcsClustertestDefaultAutoScalingGrouptestInstanceSecurityGroup79DC8D4F",
+            "GroupId",
+          ],
+        },
+        "FromPort": 32768,
+        "GroupId": {
+          "Fn::GetAtt": [
+            "LBtestSecurityGroup85865F4C",
+            "GroupId",
+          ],
+        },
+        "IpProtocol": "tcp",
+        "ToPort": 65535,
+      },
+      "Type": "AWS::EC2::SecurityGroupEgress",
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A": {
+      "DependsOn": [
+        "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+        "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": "cdk-hnb659fds-assets-045318428128-us-east-1",
+          "S3Key": "ae967c277459e8936ac565a71d34ea5dcff7b98e556466c36a4d6da023a2d9aa.zip",
+        },
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:PutRetentionPolicy",
+                "logs:DeleteRetentionPolicy",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+        "Roles": [
+          {
+            "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "MySQLCredentialstestA71485A8": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "Description": {
+          "Fn::Join": [
+            "",
+            [
+              "Generated by the CDK for stack: ",
+              {
+                "Ref": "AWS::StackName",
+              },
+            ],
+          ],
+        },
+        "GenerateSecretString": {
+          "ExcludeCharacters": " %+~\`#$&*()|[]{}:;<>?!'/@"\\",
+          "GenerateStringKey": "password",
+          "PasswordLength": 30,
+          "SecretStringTemplate": "{"username":"admin"}",
+        },
+        "Name": "chapter-5/rds/my-sql-instance-test",
+      },
+      "Type": "AWS::SecretsManager::Secret",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "MySQLCredentialstestAttachment7801D4F5": {
+      "Properties": {
+        "SecretId": {
+          "Ref": "MySQLCredentialstestA71485A8",
+        },
+        "TargetId": {
+          "Ref": "MySQLRDSInstancetestF8904F74",
+        },
+        "TargetType": "AWS::RDS::DBInstance",
+      },
+      "Type": "AWS::SecretsManager::SecretTargetAttachment",
+    },
+    "MySQLRDSInstancetestF8904F74": {
+      "DeletionPolicy": "Snapshot",
+      "Properties": {
+        "AllocatedStorage": "100",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceClass": "db.t2.small",
+        "DBInstanceIdentifier": "my-sql-instance-test",
+        "DBName": "todolist",
+        "DBSubnetGroupName": {
+          "Ref": "MySQLRDSInstancetestSubnetGroup25CB9581",
+        },
+        "Engine": "mysql",
+        "EngineVersion": "8.0.28",
+        "MasterUserPassword": {
+          "Fn::Join": [
+            "",
+            [
+              "{{resolve:secretsmanager:",
+              {
+                "Ref": "MySQLCredentialstestA71485A8",
+              },
+              ":SecretString:password::}}",
+            ],
+          ],
+        },
+        "MasterUsername": {
+          "Fn::Join": [
+            "",
+            [
+              "{{resolve:secretsmanager:",
+              {
+                "Ref": "MySQLCredentialstestA71485A8",
+              },
+              ":SecretString:username::}}",
+            ],
+          ],
+        },
+        "Port": "3306",
+        "PubliclyAccessible": true,
+        "StorageType": "gp2",
+        "VPCSecurityGroups": [
+          {
+            "Fn::GetAtt": [
+              "MySQLRDSInstancetestSecurityGroup398DA52E",
+              "GroupId",
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::RDS::DBInstance",
+      "UpdateReplacePolicy": "Snapshot",
+    },
+    "MySQLRDSInstancetestSecurityGroup398DA52E": {
+      "Properties": {
+        "GroupDescription": "Security group for MySQL-RDS-Instance-test database",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "MySQLRDSInstancetestSecurityGroupfromChapter5StackEcsClustertestDefaultAutoScalingGrouptestInstanceSecurityGroup37229BA33306BBD9FE4A": {
+      "Properties": {
+        "Description": "from Chapter5StackEcsClustertestDefaultAutoScalingGrouptestInstanceSecurityGroup37229BA3:3306",
+        "FromPort": 3306,
+        "GroupId": {
+          "Fn::GetAtt": [
+            "MySQLRDSInstancetestSecurityGroup398DA52E",
+            "GroupId",
+          ],
+        },
+        "IpProtocol": "tcp",
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
+            "EcsClustertestDefaultAutoScalingGrouptestInstanceSecurityGroup79DC8D4F",
+            "GroupId",
+          ],
+        },
+        "ToPort": 3306,
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress",
+    },
+    "MySQLRDSInstancetestSecurityGroupfromChapter5StackFunctionSecurityGroupC4560F763306ECEE8B7D": {
+      "Properties": {
+        "Description": "from Chapter5StackFunctionSecurityGroupC4560F76:3306",
+        "FromPort": 3306,
+        "GroupId": {
+          "Fn::GetAtt": [
+            "MySQLRDSInstancetestSecurityGroup398DA52E",
+            "GroupId",
+          ],
+        },
+        "IpProtocol": "tcp",
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
+            "FunctionSecurityGroup242362F8",
+            "GroupId",
+          ],
+        },
+        "ToPort": 3306,
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress",
+    },
+    "MySQLRDSInstancetestSubnetGroup25CB9581": {
+      "Properties": {
+        "DBSubnetGroupDescription": "Subnet group for MySQL-RDS-Instance-test database",
+        "SubnetIds": [
+          {
+            "Ref": "MyVPCtestrdsSubnet1Subnet1EB66223",
+          },
+          {
+            "Ref": "MyVPCtestrdsSubnet2Subnet0481DE34",
+          },
+          {
+            "Ref": "MyVPCtestrdsSubnet3Subnet75CD7701",
+          },
+        ],
+      },
+      "Type": "AWS::RDS::DBSubnetGroup",
+    },
+    "MyVPCtest581D231D": {
+      "Properties": {
+        "CidrBlock": "10.1.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::VPC",
+    },
+    "MyVPCtestIGW8EE4387D": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::InternetGateway",
+    },
+    "MyVPCtestVPCGW9BAB5A55": {
+      "Properties": {
+        "InternetGatewayId": {
+          "Ref": "MyVPCtestIGW8EE4387D",
+        },
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+    },
+    "MyVPCtestcomputeSubnet1DefaultRouteF6E4CCD8": {
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "MyVPCtestingressSubnet1NATGateway95A32F6C",
+        },
+        "RouteTableId": {
+          "Ref": "MyVPCtestcomputeSubnet1RouteTableE6F7EB3F",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "MyVPCtestcomputeSubnet1RouteTableAssociationC8EE1C00": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "MyVPCtestcomputeSubnet1RouteTableE6F7EB3F",
+        },
+        "SubnetId": {
+          "Ref": "MyVPCtestcomputeSubnet1SubnetFA9BDFAD",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "MyVPCtestcomputeSubnet1RouteTableE6F7EB3F": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/computeSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "MyVPCtestcomputeSubnet1SubnetFA9BDFAD": {
+      "Properties": {
+        "AvailabilityZone": "dummy1a",
+        "CidrBlock": "10.1.3.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "compute",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/computeSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "MyVPCtestcomputeSubnet2DefaultRouteED57A80B": {
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "MyVPCtestingressSubnet2NATGateway60C70E95",
+        },
+        "RouteTableId": {
+          "Ref": "MyVPCtestcomputeSubnet2RouteTable1A12FE04",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "MyVPCtestcomputeSubnet2RouteTable1A12FE04": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/computeSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "MyVPCtestcomputeSubnet2RouteTableAssociationDC3BF642": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "MyVPCtestcomputeSubnet2RouteTable1A12FE04",
+        },
+        "SubnetId": {
+          "Ref": "MyVPCtestcomputeSubnet2SubnetF7A93A75",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "MyVPCtestcomputeSubnet2SubnetF7A93A75": {
+      "Properties": {
+        "AvailabilityZone": "dummy1b",
+        "CidrBlock": "10.1.4.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "compute",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/computeSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "MyVPCtestcomputeSubnet3DefaultRoute1194EC23": {
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "MyVPCtestingressSubnet3NATGateway57CFE0A9",
+        },
+        "RouteTableId": {
+          "Ref": "MyVPCtestcomputeSubnet3RouteTable7A9C3031",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "MyVPCtestcomputeSubnet3RouteTable7A9C3031": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/computeSubnet3",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "MyVPCtestcomputeSubnet3RouteTableAssociation3C18AE50": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "MyVPCtestcomputeSubnet3RouteTable7A9C3031",
+        },
+        "SubnetId": {
+          "Ref": "MyVPCtestcomputeSubnet3Subnet847B4232",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "MyVPCtestcomputeSubnet3Subnet847B4232": {
+      "Properties": {
+        "AvailabilityZone": "dummy1c",
+        "CidrBlock": "10.1.5.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "compute",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/computeSubnet3",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "MyVPCtestingressSubnet1DefaultRoute674C91B0": {
+      "DependsOn": [
+        "MyVPCtestVPCGW9BAB5A55",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "MyVPCtestIGW8EE4387D",
+        },
+        "RouteTableId": {
+          "Ref": "MyVPCtestingressSubnet1RouteTable5CDC5149",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "MyVPCtestingressSubnet1EIPB3CF9DB0": {
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/ingressSubnet1",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::EIP",
+    },
+    "MyVPCtestingressSubnet1NATGateway95A32F6C": {
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "MyVPCtestingressSubnet1EIPB3CF9DB0",
+            "AllocationId",
+          ],
+        },
+        "SubnetId": {
+          "Ref": "MyVPCtestingressSubnet1SubnetB5B2AF9E",
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/ingressSubnet1",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::NatGateway",
+    },
+    "MyVPCtestingressSubnet1RouteTable5CDC5149": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/ingressSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "MyVPCtestingressSubnet1RouteTableAssociation6772371D": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "MyVPCtestingressSubnet1RouteTable5CDC5149",
+        },
+        "SubnetId": {
+          "Ref": "MyVPCtestingressSubnet1SubnetB5B2AF9E",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "MyVPCtestingressSubnet1SubnetB5B2AF9E": {
+      "Properties": {
+        "AvailabilityZone": "dummy1a",
+        "CidrBlock": "10.1.0.0/24",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "ingress",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/ingressSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "MyVPCtestingressSubnet2DefaultRoute091F9DBA": {
+      "DependsOn": [
+        "MyVPCtestVPCGW9BAB5A55",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "MyVPCtestIGW8EE4387D",
+        },
+        "RouteTableId": {
+          "Ref": "MyVPCtestingressSubnet2RouteTable844F0C21",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "MyVPCtestingressSubnet2EIP3EFD113C": {
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/ingressSubnet2",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::EIP",
+    },
+    "MyVPCtestingressSubnet2NATGateway60C70E95": {
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "MyVPCtestingressSubnet2EIP3EFD113C",
+            "AllocationId",
+          ],
+        },
+        "SubnetId": {
+          "Ref": "MyVPCtestingressSubnet2SubnetD9150D71",
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/ingressSubnet2",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::NatGateway",
+    },
+    "MyVPCtestingressSubnet2RouteTable844F0C21": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/ingressSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "MyVPCtestingressSubnet2RouteTableAssociationBCE95B94": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "MyVPCtestingressSubnet2RouteTable844F0C21",
+        },
+        "SubnetId": {
+          "Ref": "MyVPCtestingressSubnet2SubnetD9150D71",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "MyVPCtestingressSubnet2SubnetD9150D71": {
+      "Properties": {
+        "AvailabilityZone": "dummy1b",
+        "CidrBlock": "10.1.1.0/24",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "ingress",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/ingressSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "MyVPCtestingressSubnet3DefaultRoute511A8760": {
+      "DependsOn": [
+        "MyVPCtestVPCGW9BAB5A55",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "MyVPCtestIGW8EE4387D",
+        },
+        "RouteTableId": {
+          "Ref": "MyVPCtestingressSubnet3RouteTable3B2C01CB",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "MyVPCtestingressSubnet3EIPD64F0769": {
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/ingressSubnet3",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::EIP",
+    },
+    "MyVPCtestingressSubnet3NATGateway57CFE0A9": {
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "MyVPCtestingressSubnet3EIPD64F0769",
+            "AllocationId",
+          ],
+        },
+        "SubnetId": {
+          "Ref": "MyVPCtestingressSubnet3Subnet80E2293D",
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/ingressSubnet3",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::NatGateway",
+    },
+    "MyVPCtestingressSubnet3RouteTable3B2C01CB": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/ingressSubnet3",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "MyVPCtestingressSubnet3RouteTableAssociationEF93FECF": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "MyVPCtestingressSubnet3RouteTable3B2C01CB",
+        },
+        "SubnetId": {
+          "Ref": "MyVPCtestingressSubnet3Subnet80E2293D",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "MyVPCtestingressSubnet3Subnet80E2293D": {
+      "Properties": {
+        "AvailabilityZone": "dummy1c",
+        "CidrBlock": "10.1.2.0/24",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "ingress",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/ingressSubnet3",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "MyVPCtestrdsSubnet1RouteTableAssociation4C25DAFB": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "MyVPCtestrdsSubnet1RouteTableBD0A1E07",
+        },
+        "SubnetId": {
+          "Ref": "MyVPCtestrdsSubnet1Subnet1EB66223",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "MyVPCtestrdsSubnet1RouteTableBD0A1E07": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/rdsSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "MyVPCtestrdsSubnet1Subnet1EB66223": {
+      "Properties": {
+        "AvailabilityZone": "dummy1a",
+        "CidrBlock": "10.1.6.0/28",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "rds",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/rdsSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "MyVPCtestrdsSubnet2RouteTable0841AF46": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/rdsSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "MyVPCtestrdsSubnet2RouteTableAssociation20EF36A3": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "MyVPCtestrdsSubnet2RouteTable0841AF46",
+        },
+        "SubnetId": {
+          "Ref": "MyVPCtestrdsSubnet2Subnet0481DE34",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "MyVPCtestrdsSubnet2Subnet0481DE34": {
+      "Properties": {
+        "AvailabilityZone": "dummy1b",
+        "CidrBlock": "10.1.6.16/28",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "rds",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/rdsSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "MyVPCtestrdsSubnet3RouteTableAssociationA6F05C7C": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "MyVPCtestrdsSubnet3RouteTableFE23458B",
+        },
+        "SubnetId": {
+          "Ref": "MyVPCtestrdsSubnet3Subnet75CD7701",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "MyVPCtestrdsSubnet3RouteTableFE23458B": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/rdsSubnet3",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "MyVPCtestrdsSubnet3Subnet75CD7701": {
+      "Properties": {
+        "AvailabilityZone": "dummy1c",
+        "CidrBlock": "10.1.6.32/28",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "rds",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "Name",
+            "Value": "Default/Chapter5Stack/MyVPC-test/rdsSubnet3",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVPCtest581D231D",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "ServicetestService290BF432": {
+      "DependsOn": [
+        "LBtestPublicListenertestECStestGroupEB92A2B0",
+        "LBtestPublicListenertestD2501AEF",
+      ],
+      "Properties": {
+        "Cluster": {
+          "Ref": "EcsClustertestFADE5569",
+        },
+        "DeploymentConfiguration": {
+          "MaximumPercent": 200,
+          "MinimumHealthyPercent": 50,
+        },
+        "EnableECSManagedTags": false,
+        "HealthCheckGracePeriodSeconds": 60,
+        "LaunchType": "EC2",
+        "LoadBalancers": [
+          {
+            "ContainerName": "Express-test",
+            "ContainerPort": 80,
+            "TargetGroupArn": {
+              "Ref": "LBtestPublicListenertestECStestGroupEB92A2B0",
+            },
+          },
+        ],
+        "SchedulingStrategy": "REPLICA",
+        "TaskDefinition": {
+          "Ref": "TaskDefinitiontestEDBCEC13",
+        },
+      },
+      "Type": "AWS::ECS::Service",
+    },
+    "TaskDefinitiontestEDBCEC13": {
+      "Properties": {
+        "ContainerDefinitions": [
+          {
+            "Environment": [
+              {
+                "Name": "NODE_ENV",
+                "Value": "test",
+              },
+            ],
+            "Essential": true,
+            "Image": {
+              "Fn::Sub": "045318428128.dkr.ecr.us-east-1.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-045318428128-us-east-1:95a1a685845e6b8bcd75bb4bc38405cd8dacdf5ac60d9a44cb39ba7d656e18f7",
+            },
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Ref": "ECSLogGrouptest6EE193AA",
+                },
+                "awslogs-region": "us-east-1",
+                "awslogs-stream-prefix": "chapter5-test",
+              },
+            },
+            "Memory": 256,
+            "Name": "Express-test",
+            "PortMappings": [
+              {
+                "ContainerPort": 80,
+                "HostPort": 0,
+                "Protocol": "tcp",
+              },
+            ],
+          },
+        ],
+        "ExecutionRoleArn": {
+          "Fn::GetAtt": [
+            "TaskDefinitiontestExecutionRole1CF450F2",
+            "Arn",
+          ],
+        },
+        "Family": "Chapter5StackTaskDefinitiontestB16D6804",
+        "NetworkMode": "bridge",
+        "RequiresCompatibilities": [
+          "EC2",
+        ],
+        "TaskRoleArn": {
+          "Fn::GetAtt": [
+            "TaskDefinitiontestTaskRole4B37ECC7",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::ECS::TaskDefinition",
+    },
+    "TaskDefinitiontestExecutionRole1CF450F2": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TaskDefinitiontestExecutionRoleDefaultPolicy059F334F": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":ecr:us-east-1:045318428128:repository/cdk-hnb659fds-container-assets-045318428128-us-east-1",
+                  ],
+                ],
+              },
+            },
+            {
+              "Action": "ecr:GetAuthorizationToken",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "ECSLogGrouptest6EE193AA",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "TaskDefinitiontestExecutionRoleDefaultPolicy059F334F",
+        "Roles": [
+          {
+            "Ref": "TaskDefinitiontestExecutionRole1CF450F2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "TaskDefinitiontestTaskRole4B37ECC7": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TaskDefinitiontestTaskRoleDefaultPolicy153B3B8F": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "secretsmanager:GetSecretValue",
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "MySQLCredentialstestA71485A8",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "TaskDefinitiontestTaskRoleDefaultPolicy153B3B8F",
+        "Roles": [
+          {
+            "Ref": "TaskDefinitiontestTaskRole4B37ECC7",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "WebBucketDeploymenttestAwsCliLayer41AD4280": {
+      "Properties": {
+        "Content": {
+          "S3Bucket": "cdk-hnb659fds-assets-045318428128-us-east-1",
+          "S3Key": "d21f8b6ad7cafde52be800b4bc2704085a5402ea7401fa71bd8f1e3f995c6068.zip",
+        },
+        "Description": "/opt/awscli/aws",
+      },
+      "Type": "AWS::Lambda::LayerVersion",
+    },
+    "WebBucketDeploymenttestCustomResource67E6BA9F": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "DestinationBucketName": {
+          "Ref": "WebBuckettest1D7CD72B",
+        },
+        "Prune": true,
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536",
+            "Arn",
+          ],
+        },
+        "SourceBucketNames": [
+          "cdk-hnb659fds-assets-045318428128-us-east-1",
+        ],
+        "SourceObjectKeys": [
+          "905eaffe16b3b7707942159ba8c0ac4a58f06651cc85628b58d58d8582e0e5af.zip",
+        ],
+      },
+      "Type": "Custom::CDKBucketDeployment",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "WebBuckettest1D7CD72B": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "BucketName": "chapter-5-web-bucket-akemxdjqkl-test",
+        "Tags": [
+          {
+            "Key": "aws-cdk:auto-delete-objects",
+            "Value": "true",
+          },
+          {
+            "Key": "aws-cdk:cr-owned:0c0e825f",
+            "Value": "true",
+          },
+        ],
+        "WebsiteConfiguration": {
+          "ErrorDocument": "index.html",
+          "IndexDocument": "index.html",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "WebBuckettestAutoDeleteObjectsCustomResource1818E070": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "WebBuckettestPolicyA2A62D61",
+      ],
+      "Properties": {
+        "BucketName": {
+          "Ref": "WebBuckettest1D7CD72B",
+        },
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::S3AutoDeleteObjects",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "WebBuckettestPolicyA2A62D61": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "WebBuckettest1D7CD72B",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:GetObject",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "WebBuckettest1D7CD72B",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+            },
+            {
+              "Action": [
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+              ],
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::GetAtt": [
+                    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+                    "Arn",
+                  ],
+                },
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "WebBuckettest1D7CD72B",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "WebBuckettest1D7CD72B",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
