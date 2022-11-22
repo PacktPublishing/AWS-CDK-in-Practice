@@ -1,8 +1,8 @@
 {
-  "name": "chapter-5",
+  "name": "chapter-6",
   "version": "0.1.0",
   "bin": {
-    "chapter-5": "bin/chapter-5.js"
+    "chapter-6": "bin/chapter-6.js"
   },
   "scripts": {
     "build:frontend": "cd ../web && yarn install && yarn build:dev",

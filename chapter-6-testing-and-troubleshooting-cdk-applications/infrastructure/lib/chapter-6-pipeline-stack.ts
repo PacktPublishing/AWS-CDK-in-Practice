@@ -14,20 +14,20 @@ interface PipelineProps extends StackProps {
   expressAppService?: IBaseService;
 }
 
-export class Chapter5PipelineStack extends Stack {
+export class Chapter6PipelineStack extends Stack {
   constructor(scope: Construct, id: string, props: PipelineProps) {
     super(scope, id, props);
 
     /* ---------- Constructs ---------- */
-    new PipelineStack(this, 'Chapter5-Pipeline-Prod', {
+    new PipelineStack(this, 'Chapter6-Pipeline-Prod', {
       environment: 'Production',
     });
 
-    new PipelineStack(this, 'Chapter5-Pipeline-Dev', {
+    new PipelineStack(this, 'Chapter6-Pipeline-Dev', {
       environment: 'Development',
     });
 
     /* ---------- Tags ---------- */
-    Tags.of(scope).add('Project', 'Chapter5-Pipeline');
+    Tags.of(scope).add('Project', 'Chapter6-Pipeline');
   }
 }

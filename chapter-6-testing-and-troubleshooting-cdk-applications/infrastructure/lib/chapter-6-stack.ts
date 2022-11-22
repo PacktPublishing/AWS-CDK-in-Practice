@@ -8,7 +8,7 @@ import { S3 } from './constructs/S3';
 import { Route53 } from './constructs/Route53';
 import { ACM } from './constructs/ACM';
 
-export class Chapter5Stack extends Stack {
+export class Chapter6Stack extends Stack {
   public readonly acm: ACM;
 
   public readonly ecs: ECS;

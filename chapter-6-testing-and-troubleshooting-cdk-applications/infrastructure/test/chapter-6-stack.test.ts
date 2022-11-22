@@ -1,33 +1,20 @@
 import { App, Stack } from 'aws-cdk-lib';
 import { Match, Template } from 'aws-cdk-lib/assertions';
 import { config } from 'dotenv';
-import { Chapter5Stack } from '../lib/chapter-5-stack';
+import { Chapter6Stack } from '../lib/chapter-6-stack';
 
 const { parsed } = config({ path: '.env.testing' });
 
-describe('Testing Chapter 5 code.', () => {
-  // Using snapshot tests:
-  it('Matches the snapshot.', () => {
-    const stack = new Stack();
-
-    const chapter5Stack = new Chapter5Stack(stack, 'Chapter5Stack', {
-      env: { region: 'us-east-1', account: parsed?.CDK_DEFAULT_ACCOUNT },
-    });
-
-    const template = Template.fromStack(chapter5Stack);
-
-    expect(template.toJSON()).toMatchSnapshot();
-  });
-
+describe('Testing Chapter 6 code.', () => {
   // Using assertion tests:
   test('The stack has a ECS cluster configured in the right way.', () => {
     const app = new App();
 
-    const chapter5Stack = new Chapter5Stack(app, 'Chapter5Stack', {
+    const chapter6Stack = new Chapter6Stack(app, 'Chapter6Stack', {
       env: { region: 'us-east-1', account: parsed?.CDK_DEFAULT_ACCOUNT },
     });
 
-    const template = Template.fromStack(chapter5Stack);
+    const template = Template.fromStack(chapter6Stack);
 
     template.resourceCountIs('AWS::ECS::Cluster', 1);
 
@@ -56,7 +43,7 @@ describe('Testing Chapter 5 code.', () => {
               'awslogs-group': {
                 Ref: Match.stringLikeRegexp('ECSLogGroup'),
               },
-              'awslogs-stream-prefix': Match.stringLikeRegexp('chapter5'),
+              'awslogs-stream-prefix': Match.stringLikeRegexp('chapter6'),
               'awslogs-region': Match.stringLikeRegexp('us-east-1'),
             },
           },
@@ -125,11 +112,11 @@ describe('Testing Chapter 5 code.', () => {
   test('The stack has a RDS instance configured in the right way.', () => {
     const app = new App();
 
-    const chapter5Stack = new Chapter5Stack(app, 'Chapter5Stack', {
+    const chapter6Stack = new Chapter6Stack(app, 'Chapter6Stack', {
       env: { region: 'us-east-1', account: parsed?.CDK_DEFAULT_ACCOUNT },
     });
 
-    const template = Template.fromStack(chapter5Stack);
+    const template = Template.fromStack(chapter6Stack);
 
     template.resourceCountIs('AWS::RDS::DBInstance', 1);
 
@@ -202,11 +189,11 @@ describe('Testing Chapter 5 code.', () => {
   test('The stack has the VPC configured in the right way.', () => {
     const app = new App();
 
-    const chapter5Stack = new Chapter5Stack(app, 'Chapter5Stack', {
+    const chapter6Stack = new Chapter6Stack(app, 'Chapter6Stack', {
       env: { region: 'us-east-1', account: parsed?.CDK_DEFAULT_ACCOUNT },
     });
 
-    const template = Template.fromStack(chapter5Stack);
+    const template = Template.fromStack(chapter6Stack);
 
     template.resourceCountIs('AWS::EC2::VPC', 1);
 
@@ -222,5 +209,18 @@ describe('Testing Chapter 5 code.', () => {
         },
       ],
     });
+  });
+
+  // Using snapshot tests:
+  it('Matches the snapshot.', () => {
+    const stack = new Stack();
+
+    const chapter6Stack = new Chapter6Stack(stack, 'Chapter6Stack', {
+      env: { region: 'us-east-1', account: parsed?.CDK_DEFAULT_ACCOUNT },
+    });
+
+    const template = Template.fromStack(chapter6Stack);
+
+    expect(template.toJSON()).toMatchSnapshot();
   });
 });

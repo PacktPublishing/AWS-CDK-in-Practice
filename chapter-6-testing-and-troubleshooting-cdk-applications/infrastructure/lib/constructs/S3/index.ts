@@ -34,7 +34,7 @@ export class S3 extends Construct {
       scope,
       `WebBucket-${process.env.NODE_ENV || ''}`,
       {
-        bucketName: `chapter-5-web-bucket-${unique_id}-${(
+        bucketName: `chapter-6-web-bucket-${unique_id}-${(
           process.env.NODE_ENV || ''
         ).toLocaleLowerCase()}`,
         websiteIndexDocument: 'index.html',

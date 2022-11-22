@@ -45,7 +45,7 @@ export class ECS extends Construct {
       scope,
       `ECSLogGroup-${process.env.NODE_ENV || ''}`,
       {
-        logGroupName: `ecs-logs-chapter-5-${process.env.NODE_ENV || ''}`,
+        logGroupName: `ecs-logs-chapter-6-${process.env.NODE_ENV || ''}`,
         retention: RetentionDays.ONE_DAY,
         removalPolicy: RemovalPolicy.DESTROY,
       },
@@ -80,7 +80,7 @@ export class ECS extends Construct {
         },
         memoryLimitMiB: 256,
         logging: ecs.LogDriver.awsLogs({
-          streamPrefix: `chapter5-${process.env.NODE_ENV || ''}`,
+          streamPrefix: `chapter6-${process.env.NODE_ENV || ''}`,
           logGroup: this.log_group,
         }),
       },
@@ -106,7 +106,7 @@ export class ECS extends Construct {
       {
         vpc: props.vpc,
         internetFacing: true,
-        loadBalancerName: `chapter5-lb-${process.env.NODE_ENV || ''}`,
+        loadBalancerName: `chapter6-lb-${process.env.NODE_ENV || ''}`,
       },
     );
 
