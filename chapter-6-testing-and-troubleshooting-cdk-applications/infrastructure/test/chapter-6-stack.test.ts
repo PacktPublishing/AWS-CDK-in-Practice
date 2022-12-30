@@ -11,7 +11,10 @@ describe('Testing Chapter 6 code.', () => {
     const app = new App();
 
     const chapter6Stack = new Chapter6Stack(app, 'Chapter6Stack', {
-      env: { region: 'us-east-1', account: parsed?.CDK_DEFAULT_ACCOUNT },
+      env: {
+        region: parsed?.CDK_DEFAULT_REGION,
+        account: parsed?.CDK_DEFAULT_ACCOUNT,
+      },
     });
 
     const template = Template.fromStack(chapter6Stack);
@@ -44,7 +47,9 @@ describe('Testing Chapter 6 code.', () => {
                 Ref: Match.stringLikeRegexp('ECSLogGroup'),
               },
               'awslogs-stream-prefix': Match.stringLikeRegexp('chapter6'),
-              'awslogs-region': Match.stringLikeRegexp('us-east-1'),
+              'awslogs-region': Match.stringLikeRegexp(
+                parsed?.CDK_DEFAULT_REGION as string,
+              ),
             },
           },
           Memory: 256,
@@ -113,7 +118,10 @@ describe('Testing Chapter 6 code.', () => {
     const app = new App();
 
     const chapter6Stack = new Chapter6Stack(app, 'Chapter6Stack', {
-      env: { region: 'us-east-1', account: parsed?.CDK_DEFAULT_ACCOUNT },
+      env: {
+        region: parsed?.CDK_DEFAULT_REGION,
+        account: parsed?.CDK_DEFAULT_ACCOUNT,
+      },
     });
 
     const template = Template.fromStack(chapter6Stack);
@@ -190,7 +198,10 @@ describe('Testing Chapter 6 code.', () => {
     const app = new App();
 
     const chapter6Stack = new Chapter6Stack(app, 'Chapter6Stack', {
-      env: { region: 'us-east-1', account: parsed?.CDK_DEFAULT_ACCOUNT },
+      env: {
+        region: parsed?.CDK_DEFAULT_REGION,
+        account: parsed?.CDK_DEFAULT_ACCOUNT,
+      },
     });
 
     const template = Template.fromStack(chapter6Stack);
@@ -216,7 +227,10 @@ describe('Testing Chapter 6 code.', () => {
     const stack = new Stack();
 
     const chapter6Stack = new Chapter6Stack(stack, 'Chapter6Stack', {
-      env: { region: 'us-east-1', account: parsed?.CDK_DEFAULT_ACCOUNT },
+      env: {
+        region: parsed?.CDK_DEFAULT_REGION,
+        account: parsed?.CDK_DEFAULT_ACCOUNT,
+      },
     });
 
     const template = Template.fromStack(chapter6Stack);
