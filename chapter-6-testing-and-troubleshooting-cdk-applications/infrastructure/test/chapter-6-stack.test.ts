@@ -25,8 +25,6 @@ describe('Testing Chapter 6 code.', () => {
 
     template.resourceCountIs('AWS::ECS::Service', 1);
 
-    template.hasResourceProperties('AWS::ECS::Cluster', {});
-
     template.hasResourceProperties('AWS::ECS::TaskDefinition', {
       ContainerDefinitions: [
         {

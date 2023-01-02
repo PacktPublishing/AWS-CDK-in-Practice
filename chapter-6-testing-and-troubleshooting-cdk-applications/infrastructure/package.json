@@ -1,6 +1,7 @@
 {
   "name": "chapter-6",
   "version": "0.1.0",
+  "license": "MIT",
   "bin": {
     "chapter-6": "bin/chapter-6.js"
   },
@@ -10,6 +11,7 @@
     "watch": "tsc -w",
     "test": "yarn build && jest",
     "cdk:dev": "cross-env NODE_ENV=Development DOTENV_CONFIG_PATH=./.env.development CDK_MODE=ONLY_DEV cdk",
+    "cdk:testing": "cross-env NODE_ENV=Development DOTENV_CONFIG_PATH=./.env.testing CDK_MODE=ONLY_DEV cdk",
     "cdk": "cross-env NODE_ENV=Production DOTENV_CONFIG_PATH=./.env.production CDK_MODE=ONLY_PROD cdk",
     "cdk:pipeline": "cross-env CDK_MODE=ONLY_PIPELINE cdk"
   },
