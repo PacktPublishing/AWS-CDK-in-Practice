@@ -3,7 +3,7 @@ import { ContainerImage } from 'aws-cdk-lib/aws-ecs';
 import { ApplicationLoadBalancedFargateService } from 'aws-cdk-lib/aws-ecs-patterns';
 import { Construct } from 'constructs';
 
-export class IntroductionToIacAndAwsCdkStack extends Stack {
+export class Chapter1IntroductionToIacAndAwsCdkStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
@@ -11,7 +11,7 @@ export class IntroductionToIacAndAwsCdkStack extends Stack {
       taskImageOptions: {
         image: ContainerImage.fromRegistry('amazon/amazon-ecs-sample'),
       },
-      publicLoadBalancer: true,
+      publicLoadBalancer: true
     });
   }
 }

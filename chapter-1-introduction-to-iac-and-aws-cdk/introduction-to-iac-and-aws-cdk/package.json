@@ -1,8 +1,8 @@
 {
-  "name": "introduction-to-iac-and-aws-cdk",
+  "name": "chapter-1-introduction-to-iac-and-aws-cdk",
   "version": "0.1.0",
   "bin": {
-    "introduction-to-iac-and-aws-cdk": "bin/introduction-to-iac-and-aws-cdk.js"
+    "chapter-1-introduction-to-iac-and-aws-cdk": "bin/chapter-1-introduction-to-iac-and-aws-cdk.js"
   },
   "scripts": {
     "build": "tsc",
