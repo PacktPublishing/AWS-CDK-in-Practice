@@ -14,7 +14,7 @@ export class S3Bucket extends Construct {
   constructor(scope: Construct, id: string, props: Props) {
     super(scope, id);
 
-    const bucketName = props.environment === 'production' ? 'bucket-s3-book' : 'bucket-s3-book-dev';
+    const bucketName = props.environment === 'production' ? 'bucket-s3' : 'bucket-s3-dev';
 
     this.bucket = new Bucket(scope, 'Bucket-S3', {
       bucketName,
