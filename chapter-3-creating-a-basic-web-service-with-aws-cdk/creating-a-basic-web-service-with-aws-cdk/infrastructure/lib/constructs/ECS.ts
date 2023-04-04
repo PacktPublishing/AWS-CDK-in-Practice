@@ -5,10 +5,10 @@ import {
   Cluster,
   ContainerDefinition,
   ContainerImage,
-  Ec2Service,
-  Ec2TaskDefinition,
   Protocol,
-  LogDriver
+  LogDriver,
+  FargateService,
+  FargateTaskDefinition
 } from 'aws-cdk-lib/aws-ecs';
 import {
   ApplicationListener,
@@ -26,11 +26,11 @@ export class ECS extends Construct {
 
   public readonly cluster: Cluster;
 
-  public readonly task_definition: Ec2TaskDefinition;
+  public readonly task_definition: FargateTaskDefinition;
 
   public readonly container: ContainerDefinition;
 
-  public readonly service: Ec2Service;
+  public readonly service: FargateService;
 
   public readonly load_balancer: ApplicationLoadBalancer;
 
@@ -47,7 +47,7 @@ export class ECS extends Construct {
       instanceType: new InstanceType('t2.micro'),
     });
 
-    this.task_definition = new Ec2TaskDefinition(scope, 'TaskDefinition');
+    this.task_definition = new FargateTaskDefinition(scope, 'TaskDefinition');
 
     this.container = this.task_definition.addContainer('Express', {
       image: ContainerImage.fromAsset(resolve(__dirname, '..', '..', '..', 'server')),
@@ -60,7 +60,7 @@ export class ECS extends Construct {
       protocol: Protocol.TCP,
     });
 
-    this.service = new Ec2Service(scope, 'Service', {
+    this.service = new FargateService(scope, 'Service', {
       cluster: this.cluster,
       taskDefinition: this.task_definition,
     });
@@ -82,7 +82,7 @@ export class ECS extends Construct {
       ],
       healthCheck: {
         interval: Duration.seconds(60),
-        path: '/health',
+        path: '/healthcheck',
         timeout: Duration.seconds(5),
       },
     });

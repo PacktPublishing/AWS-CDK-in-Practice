@@ -27,6 +27,6 @@ export class S3 extends Construct {
       destinationBucket: this.web_bucket,
     });
 
-    new CfnOutput(scope, 'FrontendURL', { value: this.web_bucket.bucketDomainName });
+    new CfnOutput(scope, 'FrontendURL', { value: this.web_bucket.bucketWebsiteUrl });
   }
 }
