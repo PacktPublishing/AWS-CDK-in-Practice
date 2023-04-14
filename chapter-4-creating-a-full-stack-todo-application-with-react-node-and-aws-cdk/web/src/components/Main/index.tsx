@@ -8,13 +8,12 @@ import { Todo } from '../Todo';
 
 import { MainContainer } from './styles';
 
-import { backend_subdomain, domain_name } from '../../../../config.json'
+import config from '@web/outside-config/config.json'
 
 /* ----------
  * Add backend URL provided by the cdk deploy here!
  * ---------- */
-const backend_url = `https://${backend_subdomain}.${domain_name}`;
-
+const backend_url = `https://${config.backend_subdomain}.${config.domain_name}`;
 
 export const Main: React.FC = () => {
   /* ----------
