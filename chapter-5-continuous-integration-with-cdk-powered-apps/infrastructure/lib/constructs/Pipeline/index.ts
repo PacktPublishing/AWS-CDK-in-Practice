@@ -164,7 +164,7 @@ export class PipelineStack extends Construct {
       scope,
       `Chapter5-FrontEndTest-PipelineProject-${props.environment}`,
       {
-        projectName: `Chapter5-BackendTest-PipelineProject-${props.environment}`,
+        projectName: `Chapter5-FrontEndTest-PipelineProject-${props.environment}`,
         environment: {
           buildImage: LinuxBuildImage.fromCodeBuildImageId(
             'aws/codebuild/amazonlinux2-x86_64-standard:4.0',
@@ -196,7 +196,7 @@ export class PipelineStack extends Construct {
       scope,
       `BackendTest-Pipeline-${props.environment}`,
       {
-        pipelineName: `Chapter5-BackendTest-${props.environment}`,
+        pipelineName: `Chapter5-Pipeline-${props.environment}`,
       },
     );
 

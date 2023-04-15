@@ -8,7 +8,7 @@ import { Todo } from '../Todo';
 
 import { MainContainer } from './styles';
 
-import config from '../../config.json'
+import config from '@web/outside-config/config.json'
 
 /* ----------
  * Add backend URL provided by the cdk deploy here!
