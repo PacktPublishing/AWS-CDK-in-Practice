@@ -39,11 +39,6 @@ export class PipelineStack extends Construct {
       deployCommand,
       branch,
       tag,
-      domainName,
-      backendSubdomain,
-      frontendSubdomain,
-      backendDevSubdomain,
-      frontendDevSubdomain,
       githubToken,
       workspaceId,
       channelId,
@@ -124,15 +119,6 @@ export class PipelineStack extends Construct {
               commands: [
                 'cd web',
                 'yarn install',
-                `
-                echo '{
-                  "domain_name": "${domainName}",
-                  "backend_subdomain": "${backendSubdomain}",
-                  "frontend_subdomain": "${frontendSubdomain}",
-                  "backend_dev_subdomain": "${backendDevSubdomain}",
-                  "frontend_dev_subdomain": "${frontendDevSubdomain}"
-                }' > src/config.json
-                `,
                 'cd ../server',
                 'yarn install',
                 'cd ../infrastructure',
