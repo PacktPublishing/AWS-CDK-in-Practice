@@ -24,7 +24,7 @@ export class DynamoPost extends Construct {
       runtime: Runtime.NODEJS_16_X,
       entry: path.resolve(__dirname, 'code', 'index.ts'),
       handler: 'handler',
-      timeout: Duration.seconds(60),
+      timeout: Duration.seconds(30),
       environment: {
         NODE_ENV: process.env.NODE_ENV as string,
         TABLE_NAME: dynamoTable.tableName,
