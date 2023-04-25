@@ -14,7 +14,7 @@
     "cdk:testing": "cross-env NODE_ENV=Development DOTENV_CONFIG_PATH=./.env.testing CDK_MODE=ONLY_DEV cdk",
     "cdk": "cross-env NODE_ENV=Production DOTENV_CONFIG_PATH=./.env.production CDK_MODE=ONLY_PROD cdk",
     "cdk:pipeline": "cross-env CDK_MODE=ONLY_PIPELINE cdk",
-    "cdklocal": "cross-env NODE_ENV=Development DOTENV_CONFIG_PATH=./.env.development CDK_MODE=ONLY_DEV cdklocal"
+    "cdklocal": "cross-env NODE_ENV=CDKLocal DOTENV_CONFIG_PATH=./.env.development CDK_MODE=ONLY_DEV cdklocal"
   },
   "devDependencies": {
     "@types/aws-sdk": "^2.7.0",

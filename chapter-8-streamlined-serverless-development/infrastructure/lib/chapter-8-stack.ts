@@ -21,6 +21,12 @@ export class Chapter8Stack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
+    const isCDKLocal = process.env.NODE_ENV === 'CDKLocal';
+
+    this.dynamo = new DynamoDB(this, `Dynamo-${process.env.NODE_ENV || ''}`);
+
+    if (isCDKLocal) return;
+
     this.route53 = new Route53(this, `Route53-${process.env.NODE_ENV || ''}`);
 
     this.acm = new ACM(this, `ACM-${process.env.NODE_ENV || ''}`, {
@@ -31,8 +37,6 @@ export class Chapter8Stack extends Stack {
       acm: this.acm,
       route53: this.route53,
     });
-
-    this.dynamo = new DynamoDB(this, `Dynamo-${process.env.NODE_ENV || ''}`);
 
     new ApiGateway(this, `Api-Gateway-${process.env.NODE_ENV || ''}`, {
       route53: this.route53,

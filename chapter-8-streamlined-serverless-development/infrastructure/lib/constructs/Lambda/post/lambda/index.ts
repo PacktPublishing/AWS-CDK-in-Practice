@@ -14,7 +14,8 @@ export const handler = async (event: PostEvent) => {
     const dynamoDB = new DynamoDB.DocumentClient({
       region: awsRegion,
       endpoint:
-        process.env.ENDPOINT || `https://dynamodb.${awsRegion}.amazonaws.com`,
+        process.env.DYNAMODB_ENDPOINT ||
+        `https://dynamodb.${awsRegion}.amazonaws.com`,
     });
 
     const todo: Todo = {

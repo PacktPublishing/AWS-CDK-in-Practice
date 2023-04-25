@@ -1,20 +1,13 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import * as AWS from 'aws-sdk';
 
-import { handler as PostHandler } from '../../infrastructure/lib/constructs/Lambda/post/code';
-import { handler as GetHandler } from '../../infrastructure/lib/constructs/Lambda/get/code';
+import { handler as PostHandler } from '../../infrastructure/lib/constructs/Lambda/post/lambda';
+import { handler as GetHandler } from '../../infrastructure/lib/constructs/Lambda/get/lambda';
 
 const { parsed } = dotenv.config();
 
-const port = process.env.PORT || 80;
-
-AWS.config.update({
-  region: parsed?.REGION,
-  accessKeyId: parsed?.AWS_ACCESS_KEY_ID,
-  secretAccessKey: parsed?.AWS_SECRET_ACCESS_KEY,
-});
+const port = parsed?.PORT || 80;
 
 const createApp = () => {
   const app = express();
