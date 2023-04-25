@@ -10,22 +10,29 @@ config({ path: '.env.production' });
 
 const app = new cdk.App();
 
-console.log(process.env.NODE_ENV)
-
 if (['ONLY_DEV'].includes(process.env.CDK_MODE || '')) {
   new Chapter6Stack(app, `Chapter6Stack-${process.env.NODE_ENV || ''}`, {
-    env: { region: 'us-east-1', account: process.env.CDK_DEFAULT_ACCOUNT },
+    env: {
+      region: process.env.CDK_DEFAULT_REGION,
+      account: process.env.CDK_DEFAULT_ACCOUNT,
+    },
   });
 }
 
 if (['ONLY_PROD'].includes(process.env.CDK_MODE || '')) {
   new Chapter6Stack(app, `Chapter6Stack-${process.env.NODE_ENV || ''}`, {
-    env: { region: 'us-east-1', account: process.env.CDK_DEFAULT_ACCOUNT },
+    env: {
+      region: process.env.CDK_DEFAULT_REGION,
+      account: process.env.CDK_DEFAULT_ACCOUNT,
+    },
   });
 }
 
 if (['ONLY_PIPELINE'].includes(process.env.CDK_MODE || '')) {
   new Chapter6PipelineStack(app, 'Chapter6PipelineStack', {
-    env: { region: 'us-east-1', account: process.env.CDK_DEFAULT_ACCOUNT },
+    env: {
+      region: process.env.CDK_DEFAULT_REGION,
+      account: process.env.CDK_DEFAULT_ACCOUNT,
+    },
   });
 }

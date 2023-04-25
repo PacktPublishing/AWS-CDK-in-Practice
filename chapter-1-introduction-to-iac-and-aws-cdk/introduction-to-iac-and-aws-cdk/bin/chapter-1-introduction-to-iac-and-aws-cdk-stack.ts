@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { IntroductionToIacAndAwsCdkStack } from '../lib/introduction-to-iac-and-aws-cdk-stack';
+import { Chapter1IntroductionToIacAndAwsCdkStack } from '../lib/chapter-1-introduction-to-iac-and-aws-cdk-stack';
 
 const app = new cdk.App();
-new IntroductionToIacAndAwsCdkStack(app, 'IntroductionToIacAndAwsCdkStack', {
+new Chapter1IntroductionToIacAndAwsCdkStack(app, 'Chapter1IntroductionToIacAndAwsCdkStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */

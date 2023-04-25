@@ -11,6 +11,7 @@ export class MyAppStack extends Stack {
     super(scope, id, props);
 
     this.default_vpc = Vpc.fromLookup(this, 'VPC', {
+      // This will get the default account VPC
       isDefault: true,
     });
 

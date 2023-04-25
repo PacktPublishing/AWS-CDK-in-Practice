@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Debug CDK",
+        "skipFiles": [
+            "<node_internals>/**"
+        ],
+        "runtimeArgs": [
+            "-r", "./node_modules/ts-node/register/transpile-only"
+        ],
+        "args": [
+            "${workspaceFolder}/bin/chapter-6.ts"
+        ],
+        "env": {
+          "CDK_MODE": "ONLY_DEV",
+          "CDK_DEFAULT_ACCOUNT": "123456789123",
+          "NODE_ENV": "Development",
+          "CDK_DEFAULT_REGION": "us-east-1"
+        }
+      }
+  ]
+}

@@ -1,4 +1,5 @@
 import express from 'express';
+import { config } from 'dotenv'
 import cors from 'cors';
 import { v4 as uuidv4 } from 'uuid';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
@@ -10,7 +11,7 @@ import {
   QueryCommandInput,
 } from '@aws-sdk/lib-dynamodb';
 
-import { accessKeyId, region, secretAccessKey } from './config.json';
+config();
 
 const app = express();
 const port = process.env.PORT || 80;
@@ -18,7 +19,7 @@ const port = process.env.PORT || 80;
 /* ----------
  * DynamoDB Client (AWS SDK) for Node.js
  * ---------- */
-const ddbClient = new DynamoDBClient({ region, credentials: { accessKeyId, secretAccessKey } });
+const ddbClient = new DynamoDBClient({ region: 'us-east-1' });
 
 const marshallOptions = {
   convertEmptyValues: false,
@@ -79,4 +80,8 @@ app.get('/', async (_, res) => {
   });
 });
 
-app.listen(port);
+app.get('/healthcheck', async (_, res) => res.status(200).send(JSON.stringify('OK')));
+
+app.listen(port, () => {
+  console.info(`API listening on port ${port}`)
+});

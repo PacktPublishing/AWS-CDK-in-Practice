@@ -1,4 +1,7 @@
-import { DnsValidatedCertificate } from 'aws-cdk-lib/aws-certificatemanager';
+import {
+  Certificate,
+  CertificateValidation,
+} from 'aws-cdk-lib/aws-certificatemanager';
 import { IHostedZone } from 'aws-cdk-lib/aws-route53';
 import { Construct } from 'constructs';
 
@@ -9,15 +12,14 @@ interface Props {
 }
 
 export class ACM extends Construct {
-  public readonly certificate: DnsValidatedCertificate;
+  public readonly certificate: Certificate;
 
   constructor(scope: Construct, id: string, props: Props) {
     super(scope, id);
 
-    this.certificate = new DnsValidatedCertificate(scope, 'Certificate', {
+    this.certificate = new Certificate(scope, 'Certificate', {
       domainName: domain_name,
-      region: 'us-east-1',
-      hostedZone: props.hosted_zone,
+      validation: CertificateValidation.fromDns(props.hosted_zone),
       subjectAlternativeNames: [`*.${domain_name}`],
     });
   }

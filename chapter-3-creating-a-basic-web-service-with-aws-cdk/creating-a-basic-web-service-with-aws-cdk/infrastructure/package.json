@@ -27,7 +27,7 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.121.0",
     "@aws-sdk/lib-dynamodb": "^3.121.0",
-    "aws-cdk-lib": "2.25.0",
+    "aws-cdk-lib": "2.59.0",
     "constructs": "^10.0.0",
     "cors": "^2.8.5",
     "express": "^4.18.1",

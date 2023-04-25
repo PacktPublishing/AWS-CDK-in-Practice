@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.post('/', async (req, res) => {
   try {
-    const { todo_name, todo_description, todo_completed } = req.body;
+    const { todo_name, todo_description, todo_completed } = req.body.todo;
 
     const sql = `
     INSERT INTO Todolist
@@ -27,8 +27,8 @@ app.post('/', async (req, res) => {
       )
       VALUES
         (
-          '${todo_name}',
-          '${todo_description}',
+          "${todo_name}",
+          "${todo_description}",
           ${todo_completed}
         );
   `;

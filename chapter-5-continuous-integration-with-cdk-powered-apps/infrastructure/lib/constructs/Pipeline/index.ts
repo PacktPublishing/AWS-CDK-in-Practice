@@ -39,11 +39,6 @@ export class PipelineStack extends Construct {
       deployCommand,
       branch,
       tag,
-      domainName,
-      backendSubdomain,
-      frontendSubdomain,
-      backendDevSubdomain,
-      frontendDevSubdomain,
       githubToken,
       workspaceId,
       channelId,
@@ -124,15 +119,6 @@ export class PipelineStack extends Construct {
               commands: [
                 'cd web',
                 'yarn install',
-                `
-                echo '{
-                  "domain_name": "${domainName}",
-                  "backend_subdomain": "${backendSubdomain}",
-                  "frontend_subdomain": "${frontendSubdomain}",
-                  "backend_dev_subdomain": "${backendDevSubdomain}",
-                  "frontend_dev_subdomain": "${frontendDevSubdomain}"
-                }' > src/config.json
-                `,
                 'cd ../server',
                 'yarn install',
                 'cd ../infrastructure',
@@ -164,7 +150,7 @@ export class PipelineStack extends Construct {
       scope,
       `Chapter5-FrontEndTest-PipelineProject-${props.environment}`,
       {
-        projectName: `Chapter5-BackendTest-PipelineProject-${props.environment}`,
+        projectName: `Chapter5-FrontEndTest-PipelineProject-${props.environment}`,
         environment: {
           buildImage: LinuxBuildImage.fromCodeBuildImageId(
             'aws/codebuild/amazonlinux2-x86_64-standard:4.0',
@@ -196,7 +182,7 @@ export class PipelineStack extends Construct {
       scope,
       `BackendTest-Pipeline-${props.environment}`,
       {
-        pipelineName: `Chapter5-BackendTest-${props.environment}`,
+        pipelineName: `Chapter5-Pipeline-${props.environment}`,
       },
     );
 
