@@ -1,23 +1,23 @@
 import { App, Stack } from 'aws-cdk-lib';
 import { Match, Template } from 'aws-cdk-lib/assertions';
 import { config } from 'dotenv';
-import { Chapter7Stack } from '../lib/chapter-8-stack';
+import { Chapter8Stack } from '../lib/chapter-8-stack';
 
 const { parsed } = config({ path: '.env.testing' });
 
-describe('Testing Chapter 7 code.', () => {
+describe('Testing Chapter 8 code.', () => {
   // Using assertion tests:
   test('The stack has a ECS cluster configured in the right way.', () => {
     const app = new App();
 
-    const chapter7Stack = new Chapter7Stack(app, 'Chapter7Stack', {
+    const chapter8Stack = new Chapter8Stack(app, 'Chapter8Stack', {
       env: {
         region: parsed?.CDK_DEFAULT_REGION,
         account: parsed?.CDK_DEFAULT_ACCOUNT,
       },
     });
 
-    const template = Template.fromStack(chapter7Stack);
+    const template = Template.fromStack(chapter8Stack);
 
     template.resourceCountIs('AWS::ECS::Cluster', 1);
 
@@ -115,14 +115,14 @@ describe('Testing Chapter 7 code.', () => {
   test('The stack has a RDS instance configured in the right way.', () => {
     const app = new App();
 
-    const chapter7Stack = new Chapter7Stack(app, 'Chapter7Stack', {
+    const chapter8Stack = new Chapter8Stack(app, 'Chapter8Stack', {
       env: {
         region: parsed?.CDK_DEFAULT_REGION,
         account: parsed?.CDK_DEFAULT_ACCOUNT,
       },
     });
 
-    const template = Template.fromStack(chapter7Stack);
+    const template = Template.fromStack(chapter8Stack);
 
     template.resourceCountIs('AWS::RDS::DBInstance', 1);
 
@@ -195,14 +195,14 @@ describe('Testing Chapter 7 code.', () => {
   test('The stack has the VPC configured in the right way.', () => {
     const app = new App();
 
-    const chapter7Stack = new Chapter7Stack(app, 'Chapter7Stack', {
+    const chapter8Stack = new Chapter8Stack(app, 'Chapter8Stack', {
       env: {
         region: parsed?.CDK_DEFAULT_REGION,
         account: parsed?.CDK_DEFAULT_ACCOUNT,
       },
     });
 
-    const template = Template.fromStack(chapter7Stack);
+    const template = Template.fromStack(chapter8Stack);
 
     template.resourceCountIs('AWS::EC2::VPC', 1);
 
@@ -224,14 +224,14 @@ describe('Testing Chapter 7 code.', () => {
   it('Matches the snapshot.', () => {
     const stack = new Stack();
 
-    const chapter7Stack = new Chapter7Stack(stack, 'Chapter7Stack', {
+    const chapter8Stack = new Chapter8Stack(stack, 'Chapter8Stack', {
       env: {
         region: parsed?.CDK_DEFAULT_REGION,
         account: parsed?.CDK_DEFAULT_ACCOUNT,
       },
     });
 
-    const template = Template.fromStack(chapter7Stack);
+    const template = Template.fromStack(chapter8Stack);
 
     expect(template.toJSON()).toMatchSnapshot();
   });
