@@ -2,7 +2,7 @@
   "name": "chapter-3",
   "version": "0.1.0",
   "bin": {
-    "chapter-2": "bin/chapter-3.js"
+    "chapter-3": "bin/chapter-3.js"
   },
   "scripts": {
     "build": "tsc",
@@ -17,7 +17,7 @@
     "@types/node": "10.17.27",
     "@types/prettier": "2.6.0",
     "@types/uuid": "^8.3.4",
-    "aws-cdk": "2.25.0",
+    "aws-cdk": "2.34.0",
     "jest": "^27.5.1",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
@@ -27,8 +27,8 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.121.0",
     "@aws-sdk/lib-dynamodb": "^3.121.0",
-    "aws-cdk-lib": "2.59.0",
-    "constructs": "^10.0.0",
+    "aws-cdk-lib": "2.34.0",
+    "constructs": "^10.1.116",
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "source-map-support": "^0.5.21",
