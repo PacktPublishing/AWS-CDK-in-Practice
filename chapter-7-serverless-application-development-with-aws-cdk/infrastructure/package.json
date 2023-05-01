@@ -50,6 +50,7 @@
     "@aws-sdk/util-dynamodb": "^3.245.0",
     "@cloudcomponents/cdk-dynamodb-seeder": "^2.1.0",
     "aws-cdk-lib": "2.34.0",
+    "aws-cdk-ses-domain-identity": "^2.0.0",
     "aws-sdk": "^2.1289.0",
     "constructs": "^10.1.116",
     "cors": "^2.8.5",

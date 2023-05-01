@@ -1,4 +1,4 @@
-import { DynamoDB } from 'aws-sdk';
+import { DynamoDB, StepFunctions } from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
 import { PostEvent, Todo } from '@types';
 import { httpResponse } from '../../handlers/httpResponse';
@@ -12,6 +12,9 @@ export const handler = async (event: PostEvent) => {
     const dynamoDB = new DynamoDB.DocumentClient({
       region: process.env.REGION as string,
     });
+    const stepFunctions = new StepFunctions({
+      region: process.env.REGION as string,
+    });
 
     const todo: Todo = {
       id: uuidv4(),
@@ -21,6 +24,15 @@ export const handler = async (event: PostEvent) => {
     };
 
     await dynamoDB.put({ TableName: tableName, Item: todo }).promise();
+
+    await stepFunctions
+      .startExecution({
+        stateMachineArn: process.env.STATE_MACHINE_ARN as string,
+        input: JSON.stringify({
+          message: 'POST / route',
+        }),
+      })
+      .promise();
 
     return httpResponse(200, JSON.stringify({ todo }));
   } catch (error: any) {
