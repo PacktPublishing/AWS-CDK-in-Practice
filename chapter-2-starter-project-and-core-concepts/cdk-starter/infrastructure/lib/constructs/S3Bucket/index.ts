@@ -14,13 +14,12 @@ export class S3Bucket extends Construct {
   constructor(scope: Construct, id: string, props: Props) {
     super(scope, id);
 
-    const bucketName = props.environment === 'production' ? 'bucket-s3' : 'bucket-s3-dev';
+    const bucketName = props.environment === 'production' ? 'bucket-cdk-s3' : 'bucket-cdk-s3-dev';
 
     this.bucket = new Bucket(scope, 'Bucket-S3', {
       bucketName,
       // When the stack is deleted, the bucket should be destroyed
       removalPolicy: RemovalPolicy.DESTROY,
-      publicReadAccess: true,
     });
   }
 }
