@@ -1,4 +1,8 @@
-import { Bucket } from 'aws-cdk-lib/aws-s3';
+import {
+  BlockPublicAccess,
+  Bucket,
+  BucketAccessControl,
+} from 'aws-cdk-lib/aws-s3';
 import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
 import { Construct } from 'constructs';
 import { resolve } from 'path';
@@ -36,6 +40,8 @@ export class S3 extends Construct {
       websiteErrorDocument: 'index.html',
       publicReadAccess: true,
       removalPolicy: RemovalPolicy.DESTROY,
+      blockPublicAccess: BlockPublicAccess.BLOCK_ACLS,
+      accessControl: BucketAccessControl.BUCKET_OWNER_FULL_CONTROL,
       autoDeleteObjects: true,
     });
 
@@ -69,7 +75,7 @@ export class S3 extends Construct {
     });
 
     new CfnOutput(scope, 'FrontendURL', {
-      value: this.web_bucket.bucketDomainName,
+      value: this.web_bucket.bucketWebsiteUrl,
     });
   }
 }

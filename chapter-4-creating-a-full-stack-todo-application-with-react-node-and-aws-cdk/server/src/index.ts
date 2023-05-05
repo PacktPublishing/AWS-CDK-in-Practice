@@ -53,7 +53,7 @@ app.post('/', async (req, res) => {
     console.log(err);
 
     return res.status(400).send({
-      message: 'Error',
+      message: (err as any).message,
     });
   }
 });
@@ -69,7 +69,7 @@ app.get('/', async (_, res) => {
     console.log(err);
 
     return res.status(400).send({
-      message: 'Error',
+      message: (err as any).message,
     });
   }
 });
