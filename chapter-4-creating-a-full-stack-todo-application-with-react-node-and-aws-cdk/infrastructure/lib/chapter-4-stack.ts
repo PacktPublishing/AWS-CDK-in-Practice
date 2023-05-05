@@ -61,6 +61,7 @@ export class Chapter3Stack extends Stack {
     });
 
     this.ecs = new ECS(this, 'ECS', {
+      rds: this.rds,
       vpc: this.vpc,
       acm: this.acm,
       route53: this.route53,

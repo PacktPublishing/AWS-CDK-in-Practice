@@ -15,10 +15,12 @@ import { LoadBalancerTarget } from 'aws-cdk-lib/aws-route53-targets';
 
 import { ACM } from '../ACM';
 import { Route53 } from '../Route53';
+import { RDS } from '../RDS';
 
 import { backend_subdomain, domain_name } from '../../../../config.json';
 
 interface Props {
+  rds: RDS;
   vpc: Vpc;
   acm: ACM;
   route53: Route53;
@@ -65,6 +67,9 @@ export class ECS extends Construct {
         streamPrefix: 'chapter4',
         logGroup: this.log_group,
       }),
+      environment: {
+        RDS_HOST: props.rds.instance.instanceEndpoint.hostname,
+      },
     });
 
     this.container.addPortMappings({
