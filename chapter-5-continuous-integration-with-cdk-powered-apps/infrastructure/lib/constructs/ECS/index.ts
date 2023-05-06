@@ -14,10 +14,12 @@ import { ARecord, RecordTarget } from 'aws-cdk-lib/aws-route53';
 import { LoadBalancerTarget } from 'aws-cdk-lib/aws-route53-targets';
 import { ACM } from '../ACM';
 import { Route53 } from '../Route53';
+import { RDS } from '../RDS';
 
 import config from '../../../../config.json';
 
 interface Props {
+  rds: RDS;
   vpc: Vpc;
   acm: ACM;
   route53: Route53;
@@ -77,6 +79,7 @@ export class ECS extends Construct {
         ),
         environment: {
           NODE_ENV: process.env.NODE_ENV as string,
+          RDS_HOST: props.rds.instance.instanceEndpoint.hostname,
         },
         memoryLimitMiB: 256,
         logging: ecs.LogDriver.awsLogs({

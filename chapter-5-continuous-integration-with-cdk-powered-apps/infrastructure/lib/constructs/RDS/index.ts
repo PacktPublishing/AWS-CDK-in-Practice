@@ -46,7 +46,7 @@ export class RDS extends Construct {
           ec2.InstanceSize.SMALL,
         ),
         port: 3306,
-        publiclyAccessible: true,
+        publiclyAccessible: false,
         vpc: props.vpc,
         vpcSubnets: {
           onePerAz: false,
