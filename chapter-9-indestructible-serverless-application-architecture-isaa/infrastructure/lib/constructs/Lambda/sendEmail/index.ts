@@ -29,6 +29,7 @@ export class SendEmail extends Construct {
         NODE_ENV: process.env.NODE_ENV as string,
         TABLE_NAME: dynamoTable.tableName,
         REGION: process.env.CDK_DEFAULT_REGION as string,
+        EMAIL_ADDRESS: process.env.EMAIL_ADDRESS as string,
       },
       logRetention: logs.RetentionDays.TWO_WEEKS,
     });
