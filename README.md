@@ -1,2 +1,2 @@
-# Infrastructure-as-Code-with-AWS-CDK
-Infrastructure as Code with AWS CDK, published by Packt
+# AWS-CDK-in-Practice
+AWS CDK in Practice, published by Packt
