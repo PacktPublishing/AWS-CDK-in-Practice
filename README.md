@@ -65,7 +65,7 @@ Click on the following link to see the Code in Action:
 
 * AWS FinOps Simplified [[Packt]](https://www.packtpub.com/product/aws-finops-simplified/9781803247236?utm_source=github&utm_medium=repository&utm_campaign=9781803247236) [[Amazon]](https://www.amazon.com/dp/1803247231)
 
-## Get to Know the Author
+## Get to Know the Authors
 **Mark Avdi**
 is an Engineer, Solutions Architect and currently the CTO of Westpoint Software Solutions. He has gained his invaluable experience through decades of coding programs, designing software, and managing complex cloud infrastructures in multiple industries with different sets of challenges using a variety of solutions. Mark is a technologist; he keeps up with the trends and believes in the power of technology as an ultimate tool to help businesses prosper and tackle problems our world currently faces.
 
