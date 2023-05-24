@@ -6,6 +6,7 @@ import { Route53 } from './constructs/Route53';
 import { ACM } from './constructs/ACM';
 import { ApiGateway } from './constructs/API-GW';
 import { DynamoDB } from './constructs/DynamoDB';
+import { StepFunction } from './constructs/Step-Function';
 
 export class Chapter7Stack extends Stack {
   public readonly acm: ACM;
@@ -17,6 +18,8 @@ export class Chapter7Stack extends Stack {
   public readonly vpc: Vpc;
 
   public readonly dynamo: DynamoDB;
+
+  public readonly stepFunction: StepFunction;
 
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
@@ -34,10 +37,17 @@ export class Chapter7Stack extends Stack {
 
     this.dynamo = new DynamoDB(this, `Dynamo-${process.env.NODE_ENV || ''}`);
 
+    this.stepFunction = new StepFunction(
+      this,
+      `Step-Function-${process.env.NODE_ENV || ''}`,
+      {},
+    );
+
     new ApiGateway(this, `Api-Gateway-${process.env.NODE_ENV || ''}`, {
       route53: this.route53,
       acm: this.acm,
       dynamoTable: this.dynamo.table,
+      stateMachine: this.stepFunction.stateMachine,
     });
   }
 }

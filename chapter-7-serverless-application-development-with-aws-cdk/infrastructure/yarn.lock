@@ -2610,6 +2610,11 @@ aws-cdk-lib@2.34.0:
     semver "^7.3.7"
     yaml "1.10.2"
 
+aws-cdk-ses-domain-identity@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/aws-cdk-ses-domain-identity/-/aws-cdk-ses-domain-identity-2.0.0.tgz#d7d13252f9f3d2ddc74ec2daffa69b98147d53e8"
+  integrity sha512-GphqKUyk0z/+KsW5coE4pZCUiA4jGXFvqy4SdmXacAmylsPSKqZwYhkb0l36q8OjQoDvfhSghoh91eBS01xJgg==
+
 aws-cdk@2.34.0:
   version "2.34.0"
   resolved "https://registry.yarnpkg.com/aws-cdk/-/aws-cdk-2.34.0.tgz#4bfb6bb8691731b778f4d86c41f33f2155c22f42"

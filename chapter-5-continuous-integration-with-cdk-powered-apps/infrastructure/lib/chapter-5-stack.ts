@@ -52,6 +52,7 @@ export class Chapter5Stack extends Stack {
           subnetType: SubnetType.PRIVATE_ISOLATED,
         },
       ],
+      maxAzs: 2,
     });
 
     this.s3 = new S3(this, `S3-${process.env.NODE_ENV || ''}`, {
@@ -64,6 +65,7 @@ export class Chapter5Stack extends Stack {
     });
 
     this.ecs = new ECS(this, `ECS-${process.env.NODE_ENV || ''}`, {
+      rds: this.rds,
       vpc: this.vpc,
       acm: this.acm,
       route53: this.route53,

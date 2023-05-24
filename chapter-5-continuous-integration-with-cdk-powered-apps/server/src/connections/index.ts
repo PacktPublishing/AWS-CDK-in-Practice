@@ -36,7 +36,7 @@ export const init = () => {
   getSecretValue(`chapter-5/rds/my-sql-instance-${process.env.NODE_ENV}`)
     .then(({ password, username, host }) => {
       pool = mysql.createPool({
-        host,
+        host: process.env.RDS_HOST || host,
         user: username,
         password,
         multipleStatements: true,
