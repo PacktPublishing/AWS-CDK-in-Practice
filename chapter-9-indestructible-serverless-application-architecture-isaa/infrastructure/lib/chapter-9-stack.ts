@@ -6,6 +6,7 @@ import { Route53 } from './constructs/Route53';
 import { ACM } from './constructs/ACM';
 import { ApiGateway } from './constructs/API-GW';
 import { DynamoDB } from './constructs/DynamoDB';
+import { AWSGlue } from './constructs/Glue';
 
 export class Chapter9Stack extends Stack {
   public readonly acm: ACM;
@@ -26,6 +27,10 @@ export class Chapter9Stack extends Stack {
     this.dynamo = new DynamoDB(this, `Dynamo-${process.env.NODE_ENV || ''}`);
 
     if (isCDKLocal) return;
+
+    new AWSGlue(this, `Glue-${process.env.NODE_ENV || ''}`, {
+      table: this.dynamo.table,
+    });
 
     this.route53 = new Route53(this, `Route53-${process.env.NODE_ENV || ''}`);
 
