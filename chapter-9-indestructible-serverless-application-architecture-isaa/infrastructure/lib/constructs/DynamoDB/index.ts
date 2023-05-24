@@ -25,7 +25,7 @@ export class DynamoDB extends Construct {
 
     this.table = new Table(this, `Dynamo-Table-${process.env.NODE_ENV || ''}`, {
       partitionKey: { name: 'id', type: AttributeType.STRING },
-      tableName: `todolist-${process.env.NODE_ENV?.toLowerCase() || ''}`,
+      tableName: `todolist_${process.env.NODE_ENV?.toLowerCase() || ''}`,
       billingMode: BillingMode.PAY_PER_REQUEST,
       removalPolicy: RemovalPolicy.DESTROY,
       stream: StreamViewType.NEW_IMAGE,

@@ -116,7 +116,7 @@ export class AWSGlue extends Construct {
         glueVersion: '4.0',
         defaultArguments: {
           '--GLUE_DATABASE_NAME': this.glue_crawler.databaseName,
-          '--GLUE_TABLE_NAME': table.tableName.replace('-', '_'),
+          '--GLUE_TABLE_NAME': table.tableName,
           '--TARGET_S3_BUCKET': `s3://${sourceBucket.bucketName}/glue/`,
           '--JOB_NAME': `export-dynamodb-to-s3-glue-job-${process.env.NODE_ENV?.toLowerCase()}`,
         },
